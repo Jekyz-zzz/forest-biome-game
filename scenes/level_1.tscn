@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b0mtff7vkcawh"]
+
+[ext_resource type="PackedScene" uid="uid://6iek3r7foivn" path="res://scenes/player.tscn" id="1_014kd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cd0uk"]
+size = Vector2(640, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jt8jd"]
+size = Vector2(32, 360)
+
+[node name="Level1" type="Node2D" unique_id=2126073352]
+
+[node name="Player" parent="." unique_id=1749862994 instance=ExtResource("1_014kd")]
+position = Vector2(100, 200)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1143895172]
+limit_left = 0
+limit_bottom = 360
+limit_smoothed = true
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1973247126]
+position = Vector2(320, 340)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=730162990]
+shape = SubResource("RectangleShape2D_cd0uk")
+
+[node name="WallLeft" type="StaticBody2D" parent="." unique_id=953023174]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft" unique_id=837195724]
+position = Vector2(-16, 180)
+shape = SubResource("RectangleShape2D_jt8jd")
