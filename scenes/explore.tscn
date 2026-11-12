@@ -1,0 +1,1215 @@
+[gd_scene load_steps=6 format=3]
+
+
+[ext_resource type="Script" path="res://scripts/explore.gd" id="1"]
+
+[ext_resource type="Script" path="res://scripts/placeholder.gd" id="2_ph"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(3400, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(32, 360)
+
+[node name="Explore" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Placeholders" type="Node2D" parent="."]
+
+[node name="Sky" type="ColorRect" parent="Placeholders"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 3400.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.0824, 0.2078, 0.1647, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Hills" type="Node2D" parent="Placeholders"]
+
+[node name="Hill1" type="ColorRect" parent="Placeholders/Hills"]
+offset_left = 145.0
+offset_top = 163.0
+offset_right = 295.0
+offset_bottom = 313.0
+pivot_offset = Vector2(75.0, 75.0)
+rotation = 0.785398
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Hill2" type="ColorRect" parent="Placeholders/Hills"]
+offset_left = 425.0
+offset_top = 143.0
+offset_right = 615.0
+offset_bottom = 333.0
+pivot_offset = Vector2(95.0, 95.0)
+rotation = 0.785398
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Hill3" type="ColorRect" parent="Placeholders/Hills"]
+offset_left = 780.0
+offset_top = 158.0
+offset_right = 940.0
+offset_bottom = 318.0
+pivot_offset = Vector2(80.0, 80.0)
+rotation = 0.785398
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Hill4" type="ColorRect" parent="Placeholders/Hills"]
+offset_left = 1095.0
+offset_top = 133.0
+offset_right = 1305.0
+offset_bottom = 343.0
+pivot_offset = Vector2(105.0, 105.0)
+rotation = 0.785398
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Hill5" type="ColorRect" parent="Placeholders/Hills"]
+offset_left = 1515.0
+offset_top = 153.0
+offset_right = 1685.0
+offset_bottom = 323.0
+pivot_offset = Vector2(85.0, 85.0)
+rotation = 0.785398
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Hill6" type="ColorRect" parent="Placeholders/Hills"]
+offset_left = 1950.0
+offset_top = 138.0
+offset_right = 2150.0
+offset_bottom = 338.0
+pivot_offset = Vector2(100.0, 100.0)
+rotation = 0.785398
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Hill7" type="ColorRect" parent="Placeholders/Hills"]
+offset_left = 2410.0
+offset_top = 148.0
+offset_right = 2590.0
+offset_bottom = 328.0
+pivot_offset = Vector2(90.0, 90.0)
+rotation = 0.785398
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Hill8" type="ColorRect" parent="Placeholders/Hills"]
+offset_left = 2840.0
+offset_top = 128.0
+offset_right = 3060.0
+offset_bottom = 348.0
+pivot_offset = Vector2(110.0, 110.0)
+rotation = 0.785398
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Horizon" type="ColorRect" parent="Placeholders"]
+offset_left = 0.0
+offset_top = 236.0
+offset_right = 3400.0
+offset_bottom = 324.0
+mouse_filter = 2
+color = Color(0.1020, 0.2471, 0.1843, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Soil" type="ColorRect" parent="Placeholders"]
+offset_left = 0.0
+offset_top = 324.0
+offset_right = 3400.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.2314, 0.1686, 0.1020, 1.0)
+script = ExtResource("2_ph")
+
+[node name="GroundTop" type="ColorRect" parent="Placeholders"]
+offset_left = 0.0
+offset_top = 318.0
+offset_right = 3400.0
+offset_bottom = 328.0
+mouse_filter = 2
+color = Color(0.3098, 0.5490, 0.2471, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Water" type="ColorRect" parent="Placeholders"]
+offset_left = 0.0
+offset_top = 302.0
+offset_right = 3400.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.2510, 0.5020, 0.5490, 0.35)
+script = ExtResource("2_ph")
+
+[node name="Decor" type="Node2D" parent="Placeholders"]
+
+[node name="Decor01" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(180.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor01"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor01"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor01"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor02" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(330.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor02"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor02"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor02"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor03" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(480.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor03"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor03"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor03"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor04" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(820.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor04"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor04"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor04"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor05" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(980.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor05"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor05"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor05"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor06" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(1140.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor06"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor06"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor06"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor07" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(1650.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor07"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor07"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor07"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor08" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(1780.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor08"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor08"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor08"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor09" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(1920.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor09"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor09"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor09"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor10" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(2080.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor10"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor10"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor10"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor11" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(2440.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor11"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor11"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor11"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor12" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(2600.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor12"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor12"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor12"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor13" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(2760.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor13"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor13"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor13"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Decor14" type="Node2D" parent="Placeholders/Decor"]
+position = Vector2(2900.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Decor/Decor14"]
+offset_left = -5.0
+offset_top = -56.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2392, 0.1647, 0.0902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Decor/Decor14"]
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 30.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Grass" type="ColorRect" parent="Placeholders/Decor/Decor14"]
+offset_left = -20.0
+offset_top = -80.0
+offset_right = 20.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+visible = false
+
+[node name="Mist" type="Node2D" parent="Placeholders"]
+
+[node name="Mist1" type="ColorRect" parent="Placeholders/Mist"]
+offset_left = 0.0
+offset_top = 200.0
+offset_right = 340.0
+offset_bottom = 226.0
+mouse_filter = 2
+color = Color(0.9020, 0.9490, 0.9020, 0.05)
+script = ExtResource("2_ph")
+
+[node name="Mist2" type="ColorRect" parent="Placeholders/Mist"]
+offset_left = 200.0
+offset_top = 224.0
+offset_right = 540.0
+offset_bottom = 250.0
+mouse_filter = 2
+color = Color(0.9020, 0.9490, 0.9020, 0.05)
+script = ExtResource("2_ph")
+
+[node name="Mist3" type="ColorRect" parent="Placeholders/Mist"]
+offset_left = 400.0
+offset_top = 248.0
+offset_right = 740.0
+offset_bottom = 274.0
+mouse_filter = 2
+color = Color(0.9020, 0.9490, 0.9020, 0.05)
+script = ExtResource("2_ph")
+
+[node name="Mist4" type="ColorRect" parent="Placeholders/Mist"]
+offset_left = 600.0
+offset_top = 200.0
+offset_right = 940.0
+offset_bottom = 226.0
+mouse_filter = 2
+color = Color(0.9020, 0.9490, 0.9020, 0.05)
+script = ExtResource("2_ph")
+
+[node name="Mist5" type="ColorRect" parent="Placeholders/Mist"]
+offset_left = 800.0
+offset_top = 224.0
+offset_right = 1140.0
+offset_bottom = 250.0
+mouse_filter = 2
+color = Color(0.9020, 0.9490, 0.9020, 0.05)
+script = ExtResource("2_ph")
+
+[node name="Mist6" type="ColorRect" parent="Placeholders/Mist"]
+offset_left = 1000.0
+offset_top = 248.0
+offset_right = 1340.0
+offset_bottom = 274.0
+mouse_filter = 2
+color = Color(0.9020, 0.9490, 0.9020, 0.05)
+script = ExtResource("2_ph")
+
+[node name="Props" type="Node2D" parent="Placeholders"]
+
+[node name="Hujan" type="Node2D" parent="Placeholders/Props"]
+position = Vector2(0.0, 0.0)
+
+[node name="Meranti" type="Node2D" parent="Placeholders/Props/Hujan"]
+position = Vector2(620.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Props/Hujan/Meranti"]
+offset_left = -12.0
+offset_top = -150.0
+offset_right = 12.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2902, 0.2000, 0.1255, 1.0)
+script = ExtResource("2_ph")
+
+[node name="CanopyA" type="ColorRect" parent="Placeholders/Props/Hujan/Meranti"]
+offset_left = -60.0
+offset_top = -210.0
+offset_right = 60.0
+offset_bottom = -120.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1.0)
+script = ExtResource("2_ph")
+
+[node name="CanopyB" type="ColorRect" parent="Placeholders/Props/Hujan/Meranti"]
+offset_left = -50.0
+offset_top = -240.0
+offset_right = 50.0
+offset_bottom = -140.0
+mouse_filter = 2
+color = Color(0.1451, 0.3490, 0.2471, 1.0)
+script = ExtResource("2_ph")
+
+[node name="CanopyC" type="ColorRect" parent="Placeholders/Props/Hujan/Meranti"]
+offset_left = -40.0
+offset_top = -260.0
+offset_right = 40.0
+offset_bottom = -160.0
+mouse_filter = 2
+color = Color(0.1804, 0.4196, 0.2824, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Harimau" type="Node2D" parent="Placeholders/Props/Hujan"]
+position = Vector2(1450.0, 324.0)
+
+[node name="Body" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = -48.0
+offset_top = -40.0
+offset_right = 38.0
+offset_bottom = -12.0
+mouse_filter = 2
+color = Color(0.8510, 0.5098, 0.1686, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Head" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = 34.0
+offset_top = -48.0
+offset_right = 62.0
+offset_bottom = -26.0
+mouse_filter = 2
+color = Color(0.8510, 0.5098, 0.1686, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Stripe1" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = -40.0
+offset_top = -40.0
+offset_right = -34.0
+offset_bottom = -12.0
+mouse_filter = 2
+color = Color(0.1176, 0.1176, 0.1176, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Stripe2" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = -18.0
+offset_top = -40.0
+offset_right = -12.0
+offset_bottom = -12.0
+mouse_filter = 2
+color = Color(0.1176, 0.1176, 0.1176, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Stripe3" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = 4.0
+offset_top = -40.0
+offset_right = 10.0
+offset_bottom = -12.0
+mouse_filter = 2
+color = Color(0.1176, 0.1176, 0.1176, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Stripe4" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = 26.0
+offset_top = -40.0
+offset_right = 32.0
+offset_bottom = -12.0
+mouse_filter = 2
+color = Color(0.1176, 0.1176, 0.1176, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg1" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = -42.0
+offset_top = -12.0
+offset_right = -34.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7882, 0.4588, 0.1412, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg2" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = -18.0
+offset_top = -12.0
+offset_right = -10.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7882, 0.4588, 0.1412, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg3" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = 6.0
+offset_top = -12.0
+offset_right = 14.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7882, 0.4588, 0.1412, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg4" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = 30.0
+offset_top = -12.0
+offset_right = 38.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7882, 0.4588, 0.1412, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Eye1" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = 42.0
+offset_top = -42.0
+offset_right = 47.0
+offset_bottom = -38.0
+mouse_filter = 2
+color = Color(1.0000, 0.9020, 0.5020, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Eye2" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = 52.0
+offset_top = -42.0
+offset_right = 57.0
+offset_bottom = -38.0
+mouse_filter = 2
+color = Color(1.0000, 0.9020, 0.5020, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Bush" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+offset_left = -20.0
+offset_top = -30.0
+offset_right = 32.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.1451, 0.3490, 0.2471, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Rafflesia" type="Node2D" parent="Placeholders/Props/Hujan"]
+position = Vector2(2280.0, 324.0)
+
+[node name="Stem" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+offset_left = -3.0
+offset_top = -16.0
+offset_right = 3.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.2471, 0.4196, 0.1961, 1.0)
+script = ExtResource("2_ph")
+
+[node name="PetalL" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+offset_left = -30.0
+offset_top = -42.0
+offset_right = -6.0
+offset_bottom = -18.0
+mouse_filter = 2
+color = Color(0.6902, 0.1882, 0.1725, 1.0)
+script = ExtResource("2_ph")
+
+[node name="PetalR" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+offset_left = 6.0
+offset_top = -42.0
+offset_right = 30.0
+offset_bottom = -18.0
+mouse_filter = 2
+color = Color(0.6902, 0.1882, 0.1725, 1.0)
+script = ExtResource("2_ph")
+
+[node name="PetalTop" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+offset_left = -20.0
+offset_top = -50.0
+offset_right = 20.0
+offset_bottom = -10.0
+mouse_filter = 2
+color = Color(0.6902, 0.1882, 0.1725, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Center" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+offset_left = -9.0
+offset_top = -39.0
+offset_right = 9.0
+offset_bottom = -21.0
+mouse_filter = 2
+color = Color(0.4784, 0.1176, 0.1098, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Sabana" type="Node2D" parent="Placeholders/Props"]
+position = Vector2(0.0, 0.0)
+visible = false
+
+[node name="Akasia" type="Node2D" parent="Placeholders/Props/Sabana"]
+position = Vector2(620.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Props/Sabana/Akasia"]
+offset_left = -6.0
+offset_top = -96.0
+offset_right = 6.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.3529, 0.2588, 0.1529, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Props/Sabana/Akasia"]
+offset_left = -70.0
+offset_top = -120.0
+offset_right = 70.0
+offset_bottom = -80.0
+mouse_filter = 2
+color = Color(0.2471, 0.4196, 0.1961, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Komodo" type="Node2D" parent="Placeholders/Props/Sabana"]
+position = Vector2(1450.0, 324.0)
+
+[node name="Body" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+offset_left = -52.0
+offset_top = -26.0
+offset_right = 44.0
+offset_bottom = -8.0
+mouse_filter = 2
+color = Color(0.4784, 0.4157, 0.3333, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Head" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+offset_left = 44.0
+offset_top = -30.0
+offset_right = 66.0
+offset_bottom = -16.0
+mouse_filter = 2
+color = Color(0.4784, 0.4157, 0.3333, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Tail" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+offset_left = -88.0
+offset_top = -24.0
+offset_right = -52.0
+offset_bottom = -10.0
+mouse_filter = 2
+color = Color(0.4784, 0.4157, 0.3333, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg1" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+offset_left = -44.0
+offset_top = -10.0
+offset_right = -37.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4157, 0.3569, 0.2824, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg2" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+offset_left = -18.0
+offset_top = -10.0
+offset_right = -11.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4157, 0.3569, 0.2824, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg3" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+offset_left = 8.0
+offset_top = -10.0
+offset_right = 15.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4157, 0.3569, 0.2824, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg4" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+offset_left = 34.0
+offset_top = -10.0
+offset_right = 41.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4157, 0.3569, 0.2824, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Tongue" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+offset_left = 66.0
+offset_top = -24.0
+offset_right = 80.0
+offset_bottom = -22.0
+mouse_filter = 2
+color = Color(0.8510, 0.3255, 0.3098, 1.0)
+script = ExtResource("2_ph")
+
+[node name="TallGrass" type="Node2D" parent="Placeholders/Props/Sabana"]
+position = Vector2(2280.0, 324.0)
+
+[node name="Blade1" type="ColorRect" parent="Placeholders/Props/Sabana/TallGrass"]
+offset_left = -36.0
+offset_top = -70.0
+offset_right = -26.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.6039, 0.6588, 0.3059, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Blade2" type="ColorRect" parent="Placeholders/Props/Sabana/TallGrass"]
+offset_left = -20.0
+offset_top = -92.0
+offset_right = -10.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Blade3" type="ColorRect" parent="Placeholders/Props/Sabana/TallGrass"]
+offset_left = -4.0
+offset_top = -80.0
+offset_right = 6.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.6039, 0.6588, 0.3059, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Blade4" type="ColorRect" parent="Placeholders/Props/Sabana/TallGrass"]
+offset_left = 12.0
+offset_top = -96.0
+offset_right = 22.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7216, 0.6627, 0.3059, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Blade5" type="ColorRect" parent="Placeholders/Props/Sabana/TallGrass"]
+offset_left = 28.0
+offset_top = -72.0
+offset_right = 38.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.6039, 0.6588, 0.3059, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Mangrove" type="Node2D" parent="Placeholders/Props"]
+position = Vector2(0.0, 0.0)
+visible = false
+
+[node name="Bakau" type="Node2D" parent="Placeholders/Props/Mangrove"]
+position = Vector2(620.0, 324.0)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/Props/Mangrove/Bakau"]
+offset_left = -5.0
+offset_top = -104.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4196, 0.2902, 0.1686, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Canopy" type="ColorRect" parent="Placeholders/Props/Mangrove/Bakau"]
+offset_left = -60.0
+offset_top = -132.0
+offset_right = 60.0
+offset_bottom = -92.0
+mouse_filter = 2
+color = Color(0.1843, 0.4196, 0.2902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="RootL" type="ColorRect" parent="Placeholders/Props/Mangrove/Bakau"]
+offset_left = -34.0
+offset_top = -8.0
+offset_right = -4.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4196, 0.2902, 0.1686, 1.0)
+script = ExtResource("2_ph")
+
+[node name="RootR" type="ColorRect" parent="Placeholders/Props/Mangrove/Bakau"]
+offset_left = 4.0
+offset_top = -8.0
+offset_right = 34.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4196, 0.2902, 0.1686, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Bekantan" type="Node2D" parent="Placeholders/Props/Mangrove"]
+position = Vector2(1450.0, 324.0)
+
+[node name="Branch" type="ColorRect" parent="Placeholders/Props/Mangrove/Bekantan"]
+offset_left = -62.0
+offset_top = -132.0
+offset_right = 62.0
+offset_bottom = -126.0
+mouse_filter = 2
+color = Color(0.3647, 0.2510, 0.1529, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Body" type="ColorRect" parent="Placeholders/Props/Mangrove/Bekantan"]
+offset_left = -14.0
+offset_top = -120.0
+offset_right = 14.0
+offset_bottom = -74.0
+mouse_filter = 2
+color = Color(0.6627, 0.4392, 0.2471, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Head" type="ColorRect" parent="Placeholders/Props/Mangrove/Bekantan"]
+offset_left = -9.0
+offset_top = -133.0
+offset_right = 9.0
+offset_bottom = -115.0
+mouse_filter = 2
+color = Color(0.7255, 0.4863, 0.2745, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Tail" type="ColorRect" parent="Placeholders/Props/Mangrove/Bekantan"]
+offset_left = 14.0
+offset_top = -126.0
+offset_right = 42.0
+offset_bottom = -118.0
+mouse_filter = 2
+color = Color(0.6627, 0.4392, 0.2471, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg1" type="ColorRect" parent="Placeholders/Props/Mangrove/Bekantan"]
+offset_left = -18.0
+offset_top = -104.0
+offset_right = -12.0
+offset_bottom = -86.0
+mouse_filter = 2
+color = Color(0.6627, 0.4392, 0.2471, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Leg2" type="ColorRect" parent="Placeholders/Props/Mangrove/Bekantan"]
+offset_left = 8.0
+offset_top = -104.0
+offset_right = 14.0
+offset_bottom = -86.0
+mouse_filter = 2
+color = Color(0.6627, 0.4392, 0.2471, 1.0)
+script = ExtResource("2_ph")
+
+[node name="ApiApi" type="Node2D" parent="Placeholders/Props/Mangrove"]
+position = Vector2(2280.0, 324.0)
+
+[node name="Bush1" type="ColorRect" parent="Placeholders/Props/Mangrove/ApiApi"]
+offset_left = -40.0
+offset_top = -50.0
+offset_right = -4.0
+offset_bottom = -10.0
+mouse_filter = 2
+color = Color(0.3098, 0.4784, 0.2588, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Bush2" type="ColorRect" parent="Placeholders/Props/Mangrove/ApiApi"]
+offset_left = -22.0
+offset_top = -60.0
+offset_right = 14.0
+offset_bottom = -20.0
+mouse_filter = 2
+color = Color(0.3098, 0.4784, 0.2588, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Bush3" type="ColorRect" parent="Placeholders/Props/Mangrove/ApiApi"]
+offset_left = 0.0
+offset_top = -50.0
+offset_right = 36.0
+offset_bottom = -10.0
+mouse_filter = 2
+color = Color(0.3098, 0.4784, 0.2588, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Spike1" type="ColorRect" parent="Placeholders/Props/Mangrove/ApiApi"]
+offset_left = -30.0
+offset_top = -14.0
+offset_right = -24.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4196, 0.2902, 0.1686, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Spike2" type="ColorRect" parent="Placeholders/Props/Mangrove/ApiApi"]
+offset_left = -10.0
+offset_top = -14.0
+offset_right = -4.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4196, 0.2902, 0.1686, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Spike3" type="ColorRect" parent="Placeholders/Props/Mangrove/ApiApi"]
+offset_left = 10.0
+offset_top = -14.0
+offset_right = 16.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4196, 0.2902, 0.1686, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Spike4" type="ColorRect" parent="Placeholders/Props/Mangrove/ApiApi"]
+offset_left = 26.0
+offset_top = -14.0
+offset_right = 32.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4196, 0.2902, 0.1686, 1.0)
+script = ExtResource("2_ph")
+
+[node name="Gate" type="Node2D" parent="Placeholders"]
+position = Vector2(3120.0, 324.0)
+
+[node name="Glow" type="ColorRect" parent="Placeholders/Gate"]
+offset_left = -26.0
+offset_top = -170.0
+offset_right = 26.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7020, 1.0000, 0.7490, 0.25)
+script = ExtResource("2_ph")
+
+[node name="PoleL" type="ColorRect" parent="Placeholders/Gate"]
+offset_left = -30.0
+offset_top = -170.0
+offset_right = -24.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7882, 0.9098, 0.6902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="PoleR" type="ColorRect" parent="Placeholders/Gate"]
+offset_left = 26.0
+offset_top = -170.0
+offset_right = 32.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.7882, 0.9098, 0.6902, 1.0)
+script = ExtResource("2_ph")
+
+[node name="GroundCollision" type="StaticBody2D" parent="."]
+position = Vector2(1700, 340)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollision"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-16, 180)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="PlayerStart" type="Marker2D" parent="."]
+position = Vector2(100, 284)

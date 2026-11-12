@@ -1,0 +1,116 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/biome_zone.gd" id="1_zone"]
+[ext_resource type="Script" path="res://scripts/lock_icon.gd" id="2_lock"]
+
+[node name="BiomeZone" type="Button"]
+clip_contents = true
+focus_mode = 0
+script = ExtResource("1_zone")
+
+[node name="Placeholder" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.24, 0.42, 0.2, 1)
+
+[node name="Art" type="TextureRect" parent="."]
+visible = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture_filter = 0
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.949, 0.918, 0.847, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "Hutan Hujan"
+horizontal_alignment = 1
+
+[node name="StatusRow" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Status" type="Label" parent="Content/StatusRow"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.851, 0.91, 0.788, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.6)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 12
+text = "Butuh penolong"
+horizontal_alignment = 1
+
+[node name="LockOverlay" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Dim" type="ColorRect" parent="LockOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="VBox" type="VBoxContainer" parent="LockOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+theme_override_constants/separation = 2
+
+[node name="LockIcon" type="Control" parent="LockOverlay/VBox"]
+custom_minimum_size = Vector2(34, 34)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+script = ExtResource("2_lock")
+
+[node name="LockLabel" type="Label" parent="LockOverlay/VBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.949, 0.918, 0.847, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.7)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 16
+text = "Terkunci"
+horizontal_alignment = 1

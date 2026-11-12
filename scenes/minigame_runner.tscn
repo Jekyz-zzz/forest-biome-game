@@ -1,0 +1,342 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/minigame_runner.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/placeholder.gd" id="2_ph"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/runner_background.png" id="3_bg"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/runner_ground.png" id="4_ground"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/runner_tiger.png" id="5_tiger"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/runner_rock.png" id="6_rock"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/Mossy Pixel Log Platform.png" id="7_log"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(1600, 32)
+
+[node name="MinigameRunner" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Placeholders" type="Node2D" parent="."]
+
+[node name="Sky" type="ColorRect" parent="Placeholders"]
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.0824, 0.2078, 0.1647, 1)
+script = ExtResource("2_ph")
+art = ExtResource("3_bg")
+
+[node name="BgTrees" type="Node2D" parent="Placeholders"]
+
+[node name="Tree1" type="Node2D" parent="Placeholders/BgTrees"]
+position = Vector2(0, 236)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/BgTrees/Tree1"]
+offset_left = -5.0
+offset_top = -60.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.1412, 0.2314, 0.1569, 1)
+
+[node name="CanopyA" type="ColorRect" parent="Placeholders/BgTrees/Tree1"]
+offset_left = -32.0
+offset_top = -92.0
+offset_right = 8.0
+offset_bottom = -56.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="CanopyB" type="ColorRect" parent="Placeholders/BgTrees/Tree1"]
+offset_left = -24.0
+offset_top = -110.0
+offset_right = 24.0
+offset_bottom = -62.0
+mouse_filter = 2
+color = Color(0.1451, 0.349, 0.2471, 1)
+
+[node name="CanopyC" type="ColorRect" parent="Placeholders/BgTrees/Tree1"]
+offset_left = -14.0
+offset_top = -124.0
+offset_right = 46.0
+offset_bottom = -64.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="Tree2" type="Node2D" parent="Placeholders/BgTrees"]
+position = Vector2(110, 236)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/BgTrees/Tree2"]
+offset_left = -5.0
+offset_top = -60.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.1412, 0.2314, 0.1569, 1)
+
+[node name="CanopyA" type="ColorRect" parent="Placeholders/BgTrees/Tree2"]
+offset_left = -32.0
+offset_top = -92.0
+offset_right = 8.0
+offset_bottom = -56.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="CanopyB" type="ColorRect" parent="Placeholders/BgTrees/Tree2"]
+offset_left = -24.0
+offset_top = -110.0
+offset_right = 24.0
+offset_bottom = -62.0
+mouse_filter = 2
+color = Color(0.1451, 0.349, 0.2471, 1)
+
+[node name="CanopyC" type="ColorRect" parent="Placeholders/BgTrees/Tree2"]
+offset_left = -14.0
+offset_top = -124.0
+offset_right = 46.0
+offset_bottom = -64.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="Tree3" type="Node2D" parent="Placeholders/BgTrees"]
+position = Vector2(220, 236)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/BgTrees/Tree3"]
+offset_left = -5.0
+offset_top = -60.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.1412, 0.2314, 0.1569, 1)
+
+[node name="CanopyA" type="ColorRect" parent="Placeholders/BgTrees/Tree3"]
+offset_left = -32.0
+offset_top = -92.0
+offset_right = 8.0
+offset_bottom = -56.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="CanopyB" type="ColorRect" parent="Placeholders/BgTrees/Tree3"]
+offset_left = -24.0
+offset_top = -110.0
+offset_right = 24.0
+offset_bottom = -62.0
+mouse_filter = 2
+color = Color(0.1451, 0.349, 0.2471, 1)
+
+[node name="CanopyC" type="ColorRect" parent="Placeholders/BgTrees/Tree3"]
+offset_left = -14.0
+offset_top = -124.0
+offset_right = 46.0
+offset_bottom = -64.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="Tree4" type="Node2D" parent="Placeholders/BgTrees"]
+position = Vector2(330, 236)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/BgTrees/Tree4"]
+offset_left = -5.0
+offset_top = -60.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.1412, 0.2314, 0.1569, 1)
+
+[node name="CanopyA" type="ColorRect" parent="Placeholders/BgTrees/Tree4"]
+offset_left = -32.0
+offset_top = -92.0
+offset_right = 8.0
+offset_bottom = -56.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="CanopyB" type="ColorRect" parent="Placeholders/BgTrees/Tree4"]
+offset_left = -24.0
+offset_top = -110.0
+offset_right = 24.0
+offset_bottom = -62.0
+mouse_filter = 2
+color = Color(0.1451, 0.349, 0.2471, 1)
+
+[node name="CanopyC" type="ColorRect" parent="Placeholders/BgTrees/Tree4"]
+offset_left = -14.0
+offset_top = -124.0
+offset_right = 46.0
+offset_bottom = -64.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="Tree5" type="Node2D" parent="Placeholders/BgTrees"]
+position = Vector2(440, 236)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/BgTrees/Tree5"]
+offset_left = -5.0
+offset_top = -60.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.1412, 0.2314, 0.1569, 1)
+
+[node name="CanopyA" type="ColorRect" parent="Placeholders/BgTrees/Tree5"]
+offset_left = -32.0
+offset_top = -92.0
+offset_right = 8.0
+offset_bottom = -56.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="CanopyB" type="ColorRect" parent="Placeholders/BgTrees/Tree5"]
+offset_left = -24.0
+offset_top = -110.0
+offset_right = 24.0
+offset_bottom = -62.0
+mouse_filter = 2
+color = Color(0.1451, 0.349, 0.2471, 1)
+
+[node name="CanopyC" type="ColorRect" parent="Placeholders/BgTrees/Tree5"]
+offset_left = -14.0
+offset_top = -124.0
+offset_right = 46.0
+offset_bottom = -64.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="Tree6" type="Node2D" parent="Placeholders/BgTrees"]
+position = Vector2(550, 236)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/BgTrees/Tree6"]
+offset_left = -5.0
+offset_top = -60.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.1412, 0.2314, 0.1569, 1)
+
+[node name="CanopyA" type="ColorRect" parent="Placeholders/BgTrees/Tree6"]
+offset_left = -32.0
+offset_top = -92.0
+offset_right = 8.0
+offset_bottom = -56.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="CanopyB" type="ColorRect" parent="Placeholders/BgTrees/Tree6"]
+offset_left = -24.0
+offset_top = -110.0
+offset_right = 24.0
+offset_bottom = -62.0
+mouse_filter = 2
+color = Color(0.1451, 0.349, 0.2471, 1)
+
+[node name="CanopyC" type="ColorRect" parent="Placeholders/BgTrees/Tree6"]
+offset_left = -14.0
+offset_top = -124.0
+offset_right = 46.0
+offset_bottom = -64.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="Tree7" type="Node2D" parent="Placeholders/BgTrees"]
+position = Vector2(660, 236)
+
+[node name="Trunk" type="ColorRect" parent="Placeholders/BgTrees/Tree7"]
+offset_left = -5.0
+offset_top = -60.0
+offset_right = 5.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.1412, 0.2314, 0.1569, 1)
+
+[node name="CanopyA" type="ColorRect" parent="Placeholders/BgTrees/Tree7"]
+offset_left = -32.0
+offset_top = -92.0
+offset_right = 8.0
+offset_bottom = -56.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="CanopyB" type="ColorRect" parent="Placeholders/BgTrees/Tree7"]
+offset_left = -24.0
+offset_top = -110.0
+offset_right = 24.0
+offset_bottom = -62.0
+mouse_filter = 2
+color = Color(0.1451, 0.349, 0.2471, 1)
+
+[node name="CanopyC" type="ColorRect" parent="Placeholders/BgTrees/Tree7"]
+offset_left = -14.0
+offset_top = -124.0
+offset_right = 46.0
+offset_bottom = -64.0
+mouse_filter = 2
+color = Color(0.1216, 0.2902, 0.2157, 1)
+
+[node name="Ground" type="ColorRect" parent="Placeholders"]
+offset_top = 318.0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.2314, 0.1686, 0.102, 1)
+script = ExtResource("2_ph")
+art = ExtResource("4_ground")
+
+[node name="Moss" type="ColorRect" parent="Placeholders"]
+offset_top = 318.0
+offset_right = 640.0
+offset_bottom = 328.0
+mouse_filter = 2
+color = Color(0.3098, 0.549, 0.2471, 1)
+
+[node name="TigerPrototype" type="Node2D" parent="Placeholders"]
+position = Vector2(320, 324)
+
+[node name="Body" type="ColorRect" parent="Placeholders/TigerPrototype"]
+offset_left = -80.0
+offset_top = -100.0
+offset_right = 80.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.851, 0.5098, 0.1686, 1)
+script = ExtResource("2_ph")
+art = ExtResource("5_tiger")
+
+[node name="RockPrototype" type="Node2D" parent="Placeholders"]
+position = Vector2(540, 324)
+
+[node name="Body" type="ColorRect" parent="Placeholders/RockPrototype"]
+offset_left = -32.0
+offset_top = -56.0
+offset_right = 32.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.5529, 0.5529, 0.5176, 1)
+script = ExtResource("2_ph")
+art = ExtResource("6_rock")
+
+[node name="LogPrototype" type="Node2D" parent="Placeholders"]
+position = Vector2(470, 324)
+
+[node name="Body" type="ColorRect" parent="Placeholders/LogPrototype"]
+offset_left = -48.0
+offset_top = -32.0
+offset_right = 48.0
+offset_bottom = 0.0
+mouse_filter = 2
+color = Color(0.4196, 0.2902, 0.1686, 1)
+script = ExtResource("2_ph")
+art = ExtResource("7_log")
+
+[node name="PlayerStart" type="Marker2D" parent="."]
+position = Vector2(160, 284)
+
+[node name="TigerStart" type="Marker2D" parent="."]
+position = Vector2(-160, 324)
+
+[node name="ObstacleSpawn" type="Marker2D" parent="."]
+position = Vector2(700, 324)
+
+[node name="GroundCollision" type="StaticBody2D" parent="."]
+position = Vector2(320, 340)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundCollision"]
+shape = SubResource("RectangleShape2D_1")

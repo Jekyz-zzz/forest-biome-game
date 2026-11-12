@@ -1,0 +1,209 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/minigame_trash.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/placeholder.gd" id="2_ph"]
+
+[node name="MinigameTrash" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Placeholders" type="Node2D" parent="."]
+
+[node name="Sky" type="ColorRect" parent="Placeholders"]
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.5608, 0.7804, 0.7608, 1)
+script = ExtResource("2_ph")
+
+[node name="Water" type="ColorRect" parent="Placeholders"]
+offset_top = 296.0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.3, 0.55, 0.6, 0.45)
+script = ExtResource("2_ph")
+
+[node name="Mud" type="ColorRect" parent="Placeholders"]
+offset_top = 324.0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.3569, 0.2745, 0.1961, 1)
+script = ExtResource("2_ph")
+
+[node name="MudTop" type="ColorRect" parent="Placeholders"]
+offset_top = 318.0
+offset_right = 640.0
+offset_bottom = 328.0
+mouse_filter = 2
+color = Color(0.4275, 0.5412, 0.3098, 1)
+script = ExtResource("2_ph")
+
+[node name="Roots" type="Node2D" parent="Placeholders"]
+
+[node name="Root1" type="ColorRect" parent="Placeholders/Roots"]
+offset_left = 27.0
+offset_top = -10.0
+offset_right = 33.0
+offset_bottom = 170.0
+pivot_offset = Vector2(3, 90)
+rotation = 0.05
+mouse_filter = 2
+color = Color(0.3647, 0.251, 0.1529, 1)
+script = ExtResource("2_ph")
+
+[node name="Root2" type="ColorRect" parent="Placeholders/Roots"]
+offset_left = 99.0
+offset_top = -10.0
+offset_right = 105.0
+offset_bottom = 170.0
+pivot_offset = Vector2(3, 90)
+rotation = -0.04
+mouse_filter = 2
+color = Color(0.3647, 0.251, 0.1529, 1)
+script = ExtResource("2_ph")
+
+[node name="Root3" type="ColorRect" parent="Placeholders/Roots"]
+offset_left = 171.0
+offset_top = -10.0
+offset_right = 177.0
+offset_bottom = 170.0
+pivot_offset = Vector2(3, 90)
+rotation = 0.06
+mouse_filter = 2
+color = Color(0.3647, 0.251, 0.1529, 1)
+script = ExtResource("2_ph")
+
+[node name="Root4" type="ColorRect" parent="Placeholders/Roots"]
+offset_left = 243.0
+offset_top = -10.0
+offset_right = 249.0
+offset_bottom = 170.0
+pivot_offset = Vector2(3, 90)
+rotation = -0.05
+mouse_filter = 2
+color = Color(0.3647, 0.251, 0.1529, 1)
+script = ExtResource("2_ph")
+
+[node name="Root5" type="ColorRect" parent="Placeholders/Roots"]
+offset_left = 315.0
+offset_top = -10.0
+offset_right = 321.0
+offset_bottom = 170.0
+pivot_offset = Vector2(3, 90)
+rotation = 0.03
+mouse_filter = 2
+color = Color(0.3647, 0.251, 0.1529, 1)
+script = ExtResource("2_ph")
+
+[node name="Root6" type="ColorRect" parent="Placeholders/Roots"]
+offset_left = 387.0
+offset_top = -10.0
+offset_right = 393.0
+offset_bottom = 170.0
+pivot_offset = Vector2(3, 90)
+rotation = -0.06
+mouse_filter = 2
+color = Color(0.3647, 0.251, 0.1529, 1)
+script = ExtResource("2_ph")
+
+[node name="Root7" type="ColorRect" parent="Placeholders/Roots"]
+offset_left = 459.0
+offset_top = -10.0
+offset_right = 465.0
+offset_bottom = 170.0
+pivot_offset = Vector2(3, 90)
+rotation = 0.04
+mouse_filter = 2
+color = Color(0.3647, 0.251, 0.1529, 1)
+script = ExtResource("2_ph")
+
+[node name="Root8" type="ColorRect" parent="Placeholders/Roots"]
+offset_left = 531.0
+offset_top = -10.0
+offset_right = 537.0
+offset_bottom = 170.0
+pivot_offset = Vector2(3, 90)
+rotation = -0.03
+mouse_filter = 2
+color = Color(0.3647, 0.251, 0.1529, 1)
+script = ExtResource("2_ph")
+
+[node name="Root9" type="ColorRect" parent="Placeholders/Roots"]
+offset_left = 603.0
+offset_top = -10.0
+offset_right = 609.0
+offset_bottom = 170.0
+pivot_offset = Vector2(3, 90)
+rotation = 0.05
+mouse_filter = 2
+color = Color(0.3647, 0.251, 0.1529, 1)
+script = ExtResource("2_ph")
+
+[node name="TrashSpots" type="Node2D" parent="Placeholders"]
+
+[node name="Spot1" type="Marker2D" parent="Placeholders/TrashSpots"]
+position = Vector2(90, 210)
+
+[node name="Spot2" type="Marker2D" parent="Placeholders/TrashSpots"]
+position = Vector2(170, 262)
+
+[node name="Spot3" type="Marker2D" parent="Placeholders/TrashSpots"]
+position = Vector2(250, 196)
+
+[node name="Spot4" type="Marker2D" parent="Placeholders/TrashSpots"]
+position = Vector2(330, 268)
+
+[node name="Spot5" type="Marker2D" parent="Placeholders/TrashSpots"]
+position = Vector2(410, 220)
+
+[node name="Spot6" type="Marker2D" parent="Placeholders/TrashSpots"]
+position = Vector2(490, 190)
+
+[node name="Spot7" type="Marker2D" parent="Placeholders/TrashSpots"]
+position = Vector2(560, 250)
+
+[node name="Spot8" type="Marker2D" parent="Placeholders/TrashSpots"]
+position = Vector2(130, 300)
+
+[node name="BottlePrototype" type="Node2D" parent="Placeholders"]
+position = Vector2(250, 240)
+
+[node name="Body" type="ColorRect" parent="Placeholders/BottlePrototype"]
+offset_left = -6.0
+offset_top = -14.0
+offset_right = 6.0
+offset_bottom = 12.0
+mouse_filter = 2
+color = Color(0.3725, 0.6588, 0.8275, 1)
+script = ExtResource("2_ph")
+
+[node name="Cap" type="ColorRect" parent="Placeholders/BottlePrototype"]
+offset_left = -4.0
+offset_top = -18.0
+offset_right = 4.0
+offset_bottom = -13.0
+mouse_filter = 2
+color = Color(0.851, 0.851, 0.851, 1)
+script = ExtResource("2_ph")
+
+[node name="BagPrototype" type="Node2D" parent="Placeholders"]
+position = Vector2(400, 240)
+
+[node name="Bag" type="ColorRect" parent="Placeholders/BagPrototype"]
+offset_left = -13.0
+offset_top = -10.0
+offset_right = 13.0
+offset_bottom = 10.0
+mouse_filter = 2
+color = Color(0.9255, 0.9255, 0.9255, 1)
+script = ExtResource("2_ph")
+
+[node name="Tie" type="ColorRect" parent="Placeholders/BagPrototype"]
+offset_left = -4.0
+offset_top = -20.0
+offset_right = 4.0
+offset_bottom = -15.0
+mouse_filter = 2
+color = Color(0.7412, 0.7412, 0.7412, 1)
+script = ExtResource("2_ph")

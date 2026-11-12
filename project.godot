@@ -10,18 +10,26 @@ config_version=5
 
 [application]
 
-config/name="forest-biome-game"
+config/name="Rimbana"
+run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://scripts/game_state.gd"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/window_width_override=1280
-window/size/window_height_override=720
-window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
+window/size/window_width_override=1440
+window/size/window_height_override=810
+window/stretch/mode="canvas_items"
+
+[gui]
+
+theme/custom="res://assets/ui_theme.tres"
 
 [physics]
 

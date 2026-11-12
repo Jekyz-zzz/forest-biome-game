@@ -1,0 +1,255 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/map.gd" id="1_map"]
+[ext_resource type="PackedScene" path="res://scenes/biome_zone.tscn" id="2_zone"]
+[ext_resource type="Script" path="res://scripts/coin_icon.gd" id="3_coin"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/map_background.png" id="4_mapbg"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/zone_hujan.png" id="5_hujan"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/zone_sabana.png" id="6_sabana"]
+[ext_resource type="Texture2D" path="res://assets/placeholders/zone_mangrove.png" id="7_mangrove"]
+
+[node name="Map" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_map")
+background = ExtResource("4_mapbg")
+
+[node name="BackgroundArt" type="TextureRect" parent="."]
+visible = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture_filter = 0
+texture = ExtResource("4_mapbg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Scenery" type="Node2D" parent="."]
+visible = false
+
+[node name="Sky" type="ColorRect" parent="Scenery"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.6196, 0.8471, 0.8863, 1)
+
+[node name="Sea" type="ColorRect" parent="Scenery"]
+layout_mode = 0
+offset_top = 300.0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.298, 0.624, 0.741, 1)
+
+[node name="Beach" type="Polygon2D" parent="Scenery"]
+position = Vector2(320, 198)
+scale = Vector2(1.85, 0.95)
+polygon = PackedVector2Array(150, 0, 138, 57, 106, 106, 57, 138, 0, 150, -57, 138, -106, 106, -138, 57, -150, 0, -138, -57, -106, -106, -57, -138, 0, -150, 57, -138, 106, -106, 138, -57)
+color = Color(0.8902, 0.8235, 0.6078, 1)
+
+[node name="Island" type="Polygon2D" parent="Scenery"]
+position = Vector2(320, 195)
+scale = Vector2(1.85, 0.95)
+polygon = PackedVector2Array(140, 0, 129, 54, 99, 99, 54, 129, 0, 140, -54, 129, -99, 99, -129, 54, -140, 0, -129, -54, -99, -99, -54, -129, 0, -140, 54, -129, 99, -99, 129, -54)
+color = Color(0.7255, 0.8235, 0.5412, 1)
+
+[node name="Trees" type="Node2D" parent="Scenery"]
+
+[node name="Tree1" type="Polygon2D" parent="Scenery/Trees"]
+position = Vector2(120, 140)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
+color = Color(0.3647, 0.5608, 0.2941, 1)
+
+[node name="Tree2" type="Polygon2D" parent="Scenery/Trees"]
+position = Vector2(160, 200)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
+color = Color(0.3647, 0.5608, 0.2941, 1)
+
+[node name="Tree3" type="Polygon2D" parent="Scenery/Trees"]
+position = Vector2(205, 130)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
+color = Color(0.3647, 0.5608, 0.2941, 1)
+
+[node name="Tree4" type="Polygon2D" parent="Scenery/Trees"]
+position = Vector2(430, 120)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
+color = Color(0.3647, 0.5608, 0.2941, 1)
+
+[node name="Tree5" type="Polygon2D" parent="Scenery/Trees"]
+position = Vector2(500, 170)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
+color = Color(0.3647, 0.5608, 0.2941, 1)
+
+[node name="Tree6" type="Polygon2D" parent="Scenery/Trees"]
+position = Vector2(470, 210)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
+color = Color(0.3647, 0.5608, 0.2941, 1)
+
+[node name="Tree7" type="Polygon2D" parent="Scenery/Trees"]
+position = Vector2(270, 255)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
+color = Color(0.3647, 0.5608, 0.2941, 1)
+
+[node name="Tree8" type="Polygon2D" parent="Scenery/Trees"]
+position = Vector2(370, 250)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
+color = Color(0.3647, 0.5608, 0.2941, 1)
+
+[node name="Tree9" type="Polygon2D" parent="Scenery/Trees"]
+position = Vector2(330, 235)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
+color = Color(0.3647, 0.5608, 0.2941, 1)
+
+[node name="Clouds" type="Node2D" parent="Scenery"]
+
+[node name="Cloud1" type="ColorRect" parent="Scenery/Clouds"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 26.0
+offset_right = 130.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.55)
+
+[node name="Cloud2" type="ColorRect" parent="Scenery/Clouds"]
+layout_mode = 0
+offset_left = 250.0
+offset_top = 44.0
+offset_right = 340.0
+offset_bottom = 58.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.55)
+
+[node name="Cloud3" type="ColorRect" parent="Scenery/Clouds"]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 26.0
+offset_right = 550.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.55)
+
+[node name="Header" type="Label" parent="."]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 640.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1176, 0.2392, 0.1608, 1)
+theme_override_font_sizes/font_size = 18
+text = "Pilih hutan yang ingin kamu selamatkan"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Zones" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ZoneHujan" parent="Zones" instance=ExtResource("2_zone")]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 95.0
+offset_right = 275.0
+offset_bottom = 235.0
+biome_id = "hujan"
+zone_title = "Hutan Hujan"
+accent = Color(0.4, 0.7333, 0.4157, 1)
+art = ExtResource("5_hujan")
+
+[node name="Art" parent="Zones/ZoneHujan" index="1"]
+visible = true
+texture = ExtResource("5_hujan")
+
+[node name="ZoneSabana" parent="Zones" instance=ExtResource("2_zone")]
+layout_mode = 0
+offset_left = 372.0
+offset_top = 85.0
+offset_right = 552.0
+offset_bottom = 215.0
+biome_id = "sabana"
+zone_title = "Hutan Sabana"
+accent = Color(0.902, 0.7647, 0.3608, 1)
+art = ExtResource("6_sabana")
+
+[node name="Art" parent="Zones/ZoneSabana" index="1"]
+visible = true
+texture = ExtResource("6_sabana")
+
+[node name="ZoneMangrove" parent="Zones" instance=ExtResource("2_zone")]
+layout_mode = 0
+offset_left = 215.0
+offset_top = 242.0
+offset_right = 425.0
+offset_bottom = 318.0
+biome_id = "mangrove"
+zone_title = "Hutan Mangrove"
+accent = Color(0.4941, 0.7843, 0.6627, 1)
+art = ExtResource("7_mangrove")
+locked = true
+
+[node name="Art" parent="Zones/ZoneMangrove" index="1"]
+visible = true
+texture = ExtResource("7_mangrove")
+
+[node name="TopBar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CoinIcon" type="Control" parent="TopBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 44.0
+offset_right = 28.0
+offset_bottom = 64.0
+mouse_filter = 2
+script = ExtResource("3_coin")
+
+[node name="CoinLabel" type="Label" parent="TopBar"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 44.0
+offset_right = 234.0
+offset_bottom = 68.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1176, 0.2392, 0.1608, 1)
+theme_override_font_sizes/font_size = 16
+text = "Koin: 0"
+vertical_alignment = 1
+
+[node name="ShopButton" type="Button" parent="TopBar"]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 44.0
+offset_right = 630.0
+offset_bottom = 80.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 16
+text = "Toko"
+
+[node name="Overlay" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
