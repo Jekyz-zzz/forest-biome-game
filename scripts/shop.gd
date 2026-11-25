@@ -5,6 +5,7 @@ extends Control
 const ITEMS := [
 	{
 		"tab": "tanaman",
+		"id": "meranti",
 		"name": "Bibit Meranti",
 		"price": 40,
 		"desc": "Pohon raksasa rimba.",
@@ -12,6 +13,7 @@ const ITEMS := [
 	},
 	{
 		"tab": "tanaman",
+		"id": "akasia",
 		"name": "Bibit Akasia",
 		"price": 40,
 		"desc": "Peneduh padang sabana.",
@@ -19,6 +21,7 @@ const ITEMS := [
 	},
 	{
 		"tab": "tanaman",
+		"id": "bakau",
 		"name": "Bibit Bakau",
 		"price": 45,
 		"desc": "Penjaga pantai dari abrasi.",
@@ -26,6 +29,7 @@ const ITEMS := [
 	},
 	{
 		"tab": "pupuk",
+		"id": "kompos",
 		"name": "Pupuk Kompos",
 		"price": 60,
 		"desc": "Menyuburkan tanah hutan.",
@@ -33,6 +37,7 @@ const ITEMS := [
 	},
 	{
 		"tab": "pupuk",
+		"id": "kandang",
 		"name": "Pupuk Kandang",
 		"price": 60,
 		"desc": "Nutrisi alami untuk tunas.",
@@ -40,6 +45,7 @@ const ITEMS := [
 	},
 	{
 		"tab": "pupuk",
+		"id": "super",
 		"name": "Super Pupuk",
 		"price": 110,
 		"desc": "Pupuk istimewa, hasil melimpah.",
@@ -239,6 +245,9 @@ func _on_buy(item: Dictionary) -> void:
 		_show_toast("Koin belum cukup. Selamatkan hutan dulu, ya!")
 		_shake_coins()
 		return
+
+	# Catat bibit/pupuk supaya peta makin hijau.
+	GameState.record_purchase(String(item.get("id", "")))
 
 	var card_id := GameState.random_card_id()
 	GameState.add_card(card_id)

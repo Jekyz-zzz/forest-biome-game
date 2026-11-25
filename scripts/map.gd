@@ -10,6 +10,29 @@ extends Control
 		background = value
 		_apply_background()
 
+@export_group("Pohon")
+## Gambar slot kosong (pohon mati).
+@export var dead_tree_texture: Texture2D:
+	set(value):
+		dead_tree_texture = value
+		_apply_tree_textures()
+## Variasi pohon hidup per jenis. Slot ke-1, 3, 5, ... memakai variasi 1,
+## slot ke-2, 4, 6, ... memakai variasi 2, dan seterusnya (tidak acak).
+## Kalau array akasia/bakau kosong, dipakai variasi meranti.
+@export var meranti_textures: Array[Texture2D] = []:
+	set(value):
+		meranti_textures = value
+		_apply_tree_textures()
+@export var akasia_textures: Array[Texture2D] = []:
+	set(value):
+		akasia_textures = value
+		_apply_tree_textures()
+@export var bakau_textures: Array[Texture2D] = []:
+	set(value):
+		bakau_textures = value
+		_apply_tree_textures()
+@export_group("")
+
 @onready var _coin_label: Label = $TopBar/CoinLabel
 @onready var _shop_button: Button = $TopBar/ShopButton
 @onready var _zones_root: Control = $Zones
@@ -17,17 +40,32 @@ extends Control
 
 var _zone_nodes: Dictionary = {}
 
+## Alpha island_hijau untuk tahap peta 0, 1, 2, 3.
+const GREEN_ALPHA_BY_STAGE: Array[float] = [0.0, 0.33, 0.66, 1.0]
+## Slot kosong (pohon mati) hanya tampil sampai tahap ini. Sesudahnya
+## slot kosong disembunyikan; slot yang terisi selalu tampil.
+const SHOW_DEAD_TREES_UNTIL_STAGE := 1
+## Grup slot pohon -> jenis pohon di GameState.planted.
+const SLOT_GROUPS := {
+	"MapDecor/SlotsHujan": "meranti",
+	"MapDecor/SlotsSabana": "akasia",
+	"MapDecor/SlotsMangrove": "bakau",
+}
+
 
 func _ready() -> void:
 	_apply_background()
+	_apply_tree_textures()
 	if Engine.is_editor_hint():
 		return
 
-	UI.style_button(_shop_button, 16)
+	_style_icon_button(_shop_button)
 	_shop_button.pressed.connect(_on_shop_pressed)
 
 	_collect_zones()
 	_refresh_zone_status()
+	# Dipanggil setiap kali scene peta dimuat (termasuk kembali dari toko).
+	_refresh_map_growth()
 
 	GameState.coins_changed.connect(_on_coins_changed)
 	_on_coins_changed(GameState.coins)
@@ -54,6 +92,58 @@ func _apply_background() -> void:
 			scenery.visible = true
 
 
+# ----------------------------------------------------------- kehijauan --
+
+func _textures_for(tree_id: String) -> Array[Texture2D]:
+	var list: Array[Texture2D] = meranti_textures
+	if tree_id == "akasia" and not akasia_textures.is_empty():
+		list = akasia_textures
+	elif tree_id == "bakau" and not bakau_textures.is_empty():
+		list = bakau_textures
+	return list
+
+
+## Pasang texture ke setiap slot. Jalan juga di editor untuk pratinjau.
+func _apply_tree_textures() -> void:
+	if not is_inside_tree():
+		return
+	for group_path in SLOT_GROUPS:
+		var group := get_node_or_null(group_path)
+		if group == null:
+			continue
+		var list := _textures_for(String(SLOT_GROUPS[group_path]))
+		var index := 0
+		for slot in group.get_children():
+			if not slot is TreeSlot:
+				continue
+			var tree_slot := slot as TreeSlot
+			tree_slot.dead_texture = dead_tree_texture
+			tree_slot.alive_texture = list[index % list.size()] if not list.is_empty() else null
+			index += 1
+
+
+func _refresh_map_growth() -> void:
+	var stage := clampi(GameState.get_map_stage(), 0, GREEN_ALPHA_BY_STAGE.size() - 1)
+	var green := get_node_or_null("BackgroundGreen") as CanvasItem
+	if green != null:
+		green.modulate.a = GREEN_ALPHA_BY_STAGE[stage]
+	var show_dead := stage <= SHOW_DEAD_TREES_UNTIL_STAGE
+
+	for group_path in SLOT_GROUPS:
+		var group := get_node_or_null(group_path)
+		if group == null:
+			continue
+		var tree_id := String(SLOT_GROUPS[group_path])
+		var grown := int(GameState.planted.get(tree_id, 0))
+		var index := 0
+		for slot in group.get_children():
+			if slot is TreeSlot:
+				var tree_slot := slot as TreeSlot
+				tree_slot.alive = index < grown
+				tree_slot.visible = tree_slot.alive or show_dead
+				index += 1
+
+
 # ------------------------------------------------------------------ zona --
 
 func _collect_zones() -> void:
@@ -78,11 +168,43 @@ func _refresh_zone_status() -> void:
 # ------------------------------------------------------------------ topbar --
 
 func _on_coins_changed(total: int) -> void:
-	_coin_label.text = "Koin: %d" % total
+	_coin_label.text = "%d" % total
 
 
 func _on_shop_pressed() -> void:
 	GameState.change_scene("res://scenes/shop.tscn")
+
+
+# ------------------------------------------------------------ tombol ikon --
+
+## Tombol bergambar (mis. Toko). Efek sama dengan papan di menu utama:
+## membesar + menyala saat hover, mengecil sedikit saat ditekan.
+func _style_icon_button(b: Button) -> void:
+	b.flat = true
+	b.focus_mode = Control.FOCUS_NONE
+	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	b.pivot_offset = b.size / 2.0
+	var empty := StyleBoxEmpty.new()
+	for state in ["normal", "hover", "pressed", "focus", "disabled"]:
+		b.add_theme_stylebox_override(state, empty)
+	b.mouse_entered.connect(_on_icon_button_hover.bind(b, true))
+	b.mouse_exited.connect(_on_icon_button_hover.bind(b, false))
+	b.button_down.connect(_on_icon_button_scale.bind(b, Vector2(0.96, 0.96), 0.06))
+	b.button_up.connect(func() -> void:
+		_on_icon_button_scale(b, Vector2(1.08, 1.08) if b.is_hovered() else Vector2.ONE, 0.08))
+
+
+func _on_icon_button_hover(b: Button, on: bool) -> void:
+	var tw := create_tween()
+	tw.set_parallel(true)
+	tw.set_trans(Tween.TRANS_BACK if on else Tween.TRANS_SINE)
+	tw.set_ease(Tween.EASE_OUT)
+	tw.tween_property(b, "scale", Vector2(1.08, 1.08) if on else Vector2.ONE, 0.18 if on else 0.15)
+	tw.tween_property(b, "modulate", Color(1.15, 1.1, 0.95) if on else Color.WHITE, 0.18 if on else 0.15)
+
+
+func _on_icon_button_scale(b: Button, target: Vector2, duration: float) -> void:
+	create_tween().tween_property(b, "scale", target, duration)
 
 
 # -------------------------------------------------------------------- popup --

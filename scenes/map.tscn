@@ -1,14 +1,26 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene format=3 uid="uid://cud6ll7wdnh6d"]
 
-[ext_resource type="Script" path="res://scripts/map.gd" id="1_map"]
+[ext_resource type="Script" uid="uid://ydfgw30egwqs" path="res://scripts/map.gd" id="1_map"]
 [ext_resource type="PackedScene" path="res://scenes/biome_zone.tscn" id="2_zone"]
-[ext_resource type="Script" path="res://scripts/coin_icon.gd" id="3_coin"]
-[ext_resource type="Texture2D" path="res://assets/placeholders/map_background.png" id="4_mapbg"]
-[ext_resource type="Texture2D" path="res://assets/placeholders/zone_hujan.png" id="5_hujan"]
-[ext_resource type="Texture2D" path="res://assets/placeholders/zone_sabana.png" id="6_sabana"]
-[ext_resource type="Texture2D" path="res://assets/placeholders/zone_mangrove.png" id="7_mangrove"]
+[ext_resource type="Script" uid="uid://d2iddju8lfpu4" path="res://scripts/coin_icon.gd" id="3_coin"]
+[ext_resource type="Texture2D" uid="uid://b7515digkc108" path="res://assets/sprites/map/map/island_tandus.png" id="4_mapbg"]
+[ext_resource type="Texture2D" path="res://assets/sprites/map/zones/zone_hujan.png" id="5_hujan"]
+[ext_resource type="Texture2D" path="res://assets/sprites/map/zones/zone_sabana.png" id="6_sabana"]
+[ext_resource type="Texture2D" uid="uid://lvwnxb7i0x3" path="res://assets/placeholders/zone_mangrove.png" id="7_mangrove"]
+[ext_resource type="Texture2D" uid="uid://bmfs57hvioomi" path="res://assets/sprites/map/map/island_hijau.png" id="8_hijau"]
+[ext_resource type="Texture2D" uid="uid://ba5im4t2hfy27" path="res://assets/ui/map_title.png" id="9_title"]
+[ext_resource type="Script" uid="uid://b2i0o6lroeom4" path="res://scripts/tree_slot.gd" id="10_slot"]
+[ext_resource type="Script" uid="uid://esbk6oms38u7" path="res://scripts/map_bird.gd" id="11_bird"]
+[ext_resource type="Texture2D" uid="uid://dsxdmqk17g6jq" path="res://assets/sprites/map/map/bird_1.png" id="12_bird1"]
+[ext_resource type="Texture2D" uid="uid://bpliwgwb5kj8w" path="res://assets/sprites/map/map/bird_2.png" id="13_bird2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/map/zones/zone_mangrove_locked.png" id="14_mlock"]
+[ext_resource type="Texture2D" path="res://assets/sprites/map/trees/tree_dead.png" id="15_dead"]
+[ext_resource type="Texture2D" path="res://assets/sprites/map/trees/tree_meranti_1.png" id="16_mer1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/map/trees/tree_meranti_2.png" id="17_mer2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/map/trees/tree_akasia.png" id="18_akasia"]
+[ext_resource type="Texture2D" path="res://assets/ui/buttons/btn_shop.png" id="19_shop"]
 
-[node name="Map" type="Control"]
+[node name="Map" type="Control" unique_id=241138395]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,9 +29,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_map")
 background = ExtResource("4_mapbg")
+dead_tree_texture = ExtResource("15_dead")
+meranti_textures = Array[Texture2D]([ExtResource("16_mer1"), ExtResource("17_mer2")])
+akasia_textures = Array[Texture2D]([ExtResource("18_akasia")])
+bakau_textures = Array[Texture2D]([ExtResource("16_mer1"), ExtResource("17_mer2")])
 
-[node name="BackgroundArt" type="TextureRect" parent="."]
-visible = true
+[node name="BackgroundArt" type="TextureRect" parent="." unique_id=57256206]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,92 +43,101 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture_filter = 0
 texture = ExtResource("4_mapbg")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="Scenery" type="Node2D" parent="."]
+[node name="BackgroundGreen" type="TextureRect" parent="." unique_id=1805881287]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_hijau")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Scenery" type="Node2D" parent="." unique_id=2143052486]
 visible = false
 
-[node name="Sky" type="ColorRect" parent="Scenery"]
-layout_mode = 0
+[node name="Sky" type="ColorRect" parent="Scenery" unique_id=1171011991]
 offset_right = 640.0
 offset_bottom = 360.0
 mouse_filter = 2
 color = Color(0.6196, 0.8471, 0.8863, 1)
 
-[node name="Sea" type="ColorRect" parent="Scenery"]
-layout_mode = 0
+[node name="Sea" type="ColorRect" parent="Scenery" unique_id=1530662946]
 offset_top = 300.0
 offset_right = 640.0
 offset_bottom = 360.0
 mouse_filter = 2
 color = Color(0.298, 0.624, 0.741, 1)
 
-[node name="Beach" type="Polygon2D" parent="Scenery"]
+[node name="Beach" type="Polygon2D" parent="Scenery" unique_id=411040386]
 position = Vector2(320, 198)
 scale = Vector2(1.85, 0.95)
-polygon = PackedVector2Array(150, 0, 138, 57, 106, 106, 57, 138, 0, 150, -57, 138, -106, 106, -138, 57, -150, 0, -138, -57, -106, -106, -57, -138, 0, -150, 57, -138, 106, -106, 138, -57)
 color = Color(0.8902, 0.8235, 0.6078, 1)
+polygon = PackedVector2Array(150, 0, 138, 57, 106, 106, 57, 138, 0, 150, -57, 138, -106, 106, -138, 57, -150, 0, -138, -57, -106, -106, -57, -138, 0, -150, 57, -138, 106, -106, 138, -57)
 
-[node name="Island" type="Polygon2D" parent="Scenery"]
+[node name="Island" type="Polygon2D" parent="Scenery" unique_id=357307437]
 position = Vector2(320, 195)
 scale = Vector2(1.85, 0.95)
-polygon = PackedVector2Array(140, 0, 129, 54, 99, 99, 54, 129, 0, 140, -54, 129, -99, 99, -129, 54, -140, 0, -129, -54, -99, -99, -54, -129, 0, -140, 54, -129, 99, -99, 129, -54)
 color = Color(0.7255, 0.8235, 0.5412, 1)
+polygon = PackedVector2Array(140, 0, 129, 54, 99, 99, 54, 129, 0, 140, -54, 129, -99, 99, -129, 54, -140, 0, -129, -54, -99, -99, -54, -129, 0, -140, 54, -129, 99, -99, 129, -54)
 
-[node name="Trees" type="Node2D" parent="Scenery"]
+[node name="Trees" type="Node2D" parent="Scenery" unique_id=2091807689]
 
-[node name="Tree1" type="Polygon2D" parent="Scenery/Trees"]
+[node name="Tree1" type="Polygon2D" parent="Scenery/Trees" unique_id=2106864374]
 position = Vector2(120, 140)
-polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 color = Color(0.3647, 0.5608, 0.2941, 1)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 
-[node name="Tree2" type="Polygon2D" parent="Scenery/Trees"]
+[node name="Tree2" type="Polygon2D" parent="Scenery/Trees" unique_id=236951328]
 position = Vector2(160, 200)
-polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 color = Color(0.3647, 0.5608, 0.2941, 1)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 
-[node name="Tree3" type="Polygon2D" parent="Scenery/Trees"]
+[node name="Tree3" type="Polygon2D" parent="Scenery/Trees" unique_id=645683611]
 position = Vector2(205, 130)
-polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 color = Color(0.3647, 0.5608, 0.2941, 1)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 
-[node name="Tree4" type="Polygon2D" parent="Scenery/Trees"]
+[node name="Tree4" type="Polygon2D" parent="Scenery/Trees" unique_id=1751481919]
 position = Vector2(430, 120)
-polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 color = Color(0.3647, 0.5608, 0.2941, 1)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 
-[node name="Tree5" type="Polygon2D" parent="Scenery/Trees"]
+[node name="Tree5" type="Polygon2D" parent="Scenery/Trees" unique_id=1603078841]
 position = Vector2(500, 170)
-polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 color = Color(0.3647, 0.5608, 0.2941, 1)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 
-[node name="Tree6" type="Polygon2D" parent="Scenery/Trees"]
+[node name="Tree6" type="Polygon2D" parent="Scenery/Trees" unique_id=863765680]
 position = Vector2(470, 210)
-polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 color = Color(0.3647, 0.5608, 0.2941, 1)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 
-[node name="Tree7" type="Polygon2D" parent="Scenery/Trees"]
+[node name="Tree7" type="Polygon2D" parent="Scenery/Trees" unique_id=103961070]
 position = Vector2(270, 255)
-polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 color = Color(0.3647, 0.5608, 0.2941, 1)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 
-[node name="Tree8" type="Polygon2D" parent="Scenery/Trees"]
+[node name="Tree8" type="Polygon2D" parent="Scenery/Trees" unique_id=2045047241]
 position = Vector2(370, 250)
-polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 color = Color(0.3647, 0.5608, 0.2941, 1)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 
-[node name="Tree9" type="Polygon2D" parent="Scenery/Trees"]
+[node name="Tree9" type="Polygon2D" parent="Scenery/Trees" unique_id=1173596729]
 position = Vector2(330, 235)
-polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 color = Color(0.3647, 0.5608, 0.2941, 1)
+polygon = PackedVector2Array(-7, 0, 7, 0, 0, -18)
 
-[node name="Clouds" type="Node2D" parent="Scenery"]
+[node name="Clouds" type="Node2D" parent="Scenery" unique_id=1520646432]
 
-[node name="Cloud1" type="ColorRect" parent="Scenery/Clouds"]
-layout_mode = 0
+[node name="Cloud1" type="ColorRect" parent="Scenery/Clouds" unique_id=1464279711]
 offset_left = 40.0
 offset_top = 26.0
 offset_right = 130.0
@@ -120,8 +145,7 @@ offset_bottom = 40.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.55)
 
-[node name="Cloud2" type="ColorRect" parent="Scenery/Clouds"]
-layout_mode = 0
+[node name="Cloud2" type="ColorRect" parent="Scenery/Clouds" unique_id=351081803]
 offset_left = 250.0
 offset_top = 44.0
 offset_right = 340.0
@@ -129,8 +153,7 @@ offset_bottom = 58.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.55)
 
-[node name="Cloud3" type="ColorRect" parent="Scenery/Clouds"]
-layout_mode = 0
+[node name="Cloud3" type="ColorRect" parent="Scenery/Clouds" unique_id=435728742]
 offset_left = 460.0
 offset_top = 26.0
 offset_right = 550.0
@@ -138,19 +161,183 @@ offset_bottom = 40.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.55)
 
-[node name="Header" type="Label" parent="."]
-layout_mode = 0
-offset_top = 8.0
-offset_right = 640.0
-offset_bottom = 38.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.1176, 0.2392, 0.1608, 1)
-theme_override_font_sizes/font_size = 18
-text = "Pilih hutan yang ingin kamu selamatkan"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="MapDecor" type="Node2D" parent="." unique_id=1821619427]
+y_sort_enabled = true
 
-[node name="Zones" type="Control" parent="."]
+[node name="SlotsHujan" type="Node2D" parent="MapDecor" unique_id=741042541]
+y_sort_enabled = true
+
+[node name="Slot1" type="Marker2D" parent="MapDecor/SlotsHujan" unique_id=1885898108]
+texture_filter = 1
+position = Vector2(404, 160)
+script = ExtResource("10_slot")
+
+[node name="Slot2" type="Marker2D" parent="MapDecor/SlotsHujan" unique_id=1342905817]
+texture_filter = 1
+position = Vector2(260, 76)
+script = ExtResource("10_slot")
+
+[node name="Slot3" type="Marker2D" parent="MapDecor/SlotsHujan" unique_id=1630071633]
+texture_filter = 1
+position = Vector2(260, 136)
+script = ExtResource("10_slot")
+
+[node name="Slot4" type="Marker2D" parent="MapDecor/SlotsHujan" unique_id=488274303]
+texture_filter = 1
+position = Vector2(416, 84)
+script = ExtResource("10_slot")
+
+[node name="Slot5" type="Marker2D" parent="MapDecor/SlotsHujan"]
+texture_filter = 1
+position = Vector2(292, 176)
+script = ExtResource("10_slot")
+
+[node name="Slot6" type="Marker2D" parent="MapDecor/SlotsHujan"]
+texture_filter = 1
+position = Vector2(324, 176)
+script = ExtResource("10_slot")
+
+[node name="Slot7" type="Marker2D" parent="MapDecor/SlotsHujan"]
+texture_filter = 1
+position = Vector2(356, 176)
+script = ExtResource("10_slot")
+
+[node name="Slot8" type="Marker2D" parent="MapDecor/SlotsHujan"]
+texture_filter = 1
+position = Vector2(436, 152)
+script = ExtResource("10_slot")
+
+[node name="SlotsSabana" type="Node2D" parent="MapDecor" unique_id=1748438532]
+y_sort_enabled = true
+
+[node name="Slot1" type="Marker2D" parent="MapDecor/SlotsSabana" unique_id=1580043223]
+texture_filter = 1
+position = Vector2(128, 164)
+script = ExtResource("10_slot")
+tree_type = "akasia"
+
+[node name="Slot2" type="Marker2D" parent="MapDecor/SlotsSabana" unique_id=936309285]
+texture_filter = 1
+position = Vector2(160, 160)
+script = ExtResource("10_slot")
+tree_type = "akasia"
+
+[node name="Slot3" type="Marker2D" parent="MapDecor/SlotsSabana" unique_id=648417511]
+texture_filter = 1
+position = Vector2(208, 160)
+script = ExtResource("10_slot")
+tree_type = "akasia"
+
+[node name="Slot4" type="Marker2D" parent="MapDecor/SlotsSabana" unique_id=1400346460]
+texture_filter = 1
+position = Vector2(240, 160)
+script = ExtResource("10_slot")
+tree_type = "akasia"
+
+[node name="Slot5" type="Marker2D" parent="MapDecor/SlotsSabana"]
+texture_filter = 1
+position = Vector2(124, 196)
+script = ExtResource("10_slot")
+tree_type = "akasia"
+
+[node name="Slot6" type="Marker2D" parent="MapDecor/SlotsSabana"]
+texture_filter = 1
+position = Vector2(264, 188)
+script = ExtResource("10_slot")
+tree_type = "akasia"
+
+[node name="Slot7" type="Marker2D" parent="MapDecor/SlotsSabana"]
+texture_filter = 1
+position = Vector2(264, 220)
+script = ExtResource("10_slot")
+tree_type = "akasia"
+
+[node name="Slot8" type="Marker2D" parent="MapDecor/SlotsSabana"]
+texture_filter = 1
+position = Vector2(264, 292)
+script = ExtResource("10_slot")
+tree_type = "akasia"
+
+[node name="SlotsMangrove" type="Node2D" parent="MapDecor" unique_id=333180021]
+y_sort_enabled = true
+
+[node name="Slot1" type="Marker2D" parent="MapDecor/SlotsMangrove" unique_id=439298140]
+texture_filter = 1
+position = Vector2(420, 192)
+script = ExtResource("10_slot")
+tree_type = "bakau"
+
+[node name="Slot2" type="Marker2D" parent="MapDecor/SlotsMangrove" unique_id=1576319300]
+texture_filter = 1
+position = Vector2(452, 192)
+script = ExtResource("10_slot")
+tree_type = "bakau"
+
+[node name="Slot3" type="Marker2D" parent="MapDecor/SlotsMangrove" unique_id=188188945]
+texture_filter = 1
+position = Vector2(508, 192)
+script = ExtResource("10_slot")
+tree_type = "bakau"
+
+[node name="Slot4" type="Marker2D" parent="MapDecor/SlotsMangrove" unique_id=531054003]
+texture_filter = 1
+position = Vector2(408, 220)
+script = ExtResource("10_slot")
+tree_type = "bakau"
+
+[node name="Slot5" type="Marker2D" parent="MapDecor/SlotsMangrove"]
+texture_filter = 1
+position = Vector2(408, 288)
+script = ExtResource("10_slot")
+tree_type = "bakau"
+
+[node name="Slot6" type="Marker2D" parent="MapDecor/SlotsMangrove"]
+texture_filter = 1
+position = Vector2(408, 320)
+script = ExtResource("10_slot")
+tree_type = "bakau"
+
+[node name="Slot7" type="Marker2D" parent="MapDecor/SlotsMangrove"]
+texture_filter = 1
+position = Vector2(396, 348)
+script = ExtResource("10_slot")
+tree_type = "bakau"
+
+[node name="Slot8" type="Marker2D" parent="MapDecor/SlotsMangrove"]
+texture_filter = 1
+position = Vector2(388, 196)
+script = ExtResource("10_slot")
+tree_type = "bakau"
+
+[node name="Birds" type="Node2D" parent="MapDecor" unique_id=1865760580]
+
+[node name="Bird1" type="Sprite2D" parent="MapDecor/Birds" unique_id=1792921067]
+position = Vector2(140, 34)
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("12_bird1")
+script = ExtResource("11_bird")
+speed = 12.0
+
+[node name="Bird2" type="Sprite2D" parent="MapDecor/Birds" unique_id=942457155]
+position = Vector2(470, 30)
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("13_bird2")
+script = ExtResource("11_bird")
+speed = 9.0
+direction = -1
+
+[node name="TitleArt" type="TextureRect" parent="." unique_id=537778565]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 6.0
+offset_right = 520.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("9_title")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Zones" type="Control" parent="." unique_id=607558377]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -159,53 +346,50 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ZoneHujan" parent="Zones" instance=ExtResource("2_zone")]
+[node name="ZoneHujan" parent="Zones" unique_id=1863621155 instance=ExtResource("2_zone")]
 layout_mode = 0
-offset_left = 75.0
-offset_top = 95.0
-offset_right = 275.0
-offset_bottom = 235.0
-biome_id = "hujan"
-zone_title = "Hutan Hujan"
+offset_left = 284.0
+offset_top = 38.0
+offset_right = 391.0
+offset_bottom = 140.0
+mouse_default_cursor_shape = 2
+flat = true
+zone_title = ""
 accent = Color(0.4, 0.7333, 0.4157, 1)
 art = ExtResource("5_hujan")
 
-[node name="Art" parent="Zones/ZoneHujan" index="1"]
-visible = true
-texture = ExtResource("5_hujan")
-
-[node name="ZoneSabana" parent="Zones" instance=ExtResource("2_zone")]
+[node name="ZoneSabana" parent="Zones" unique_id=1818075132 instance=ExtResource("2_zone")]
 layout_mode = 0
-offset_left = 372.0
-offset_top = 85.0
-offset_right = 552.0
-offset_bottom = 215.0
+offset_left = 148.0
+offset_top = 171.0
+offset_right = 240.0
+offset_bottom = 287.0
+mouse_default_cursor_shape = 2
+flat = true
 biome_id = "sabana"
-zone_title = "Hutan Sabana"
+zone_title = ""
 accent = Color(0.902, 0.7647, 0.3608, 1)
 art = ExtResource("6_sabana")
 
-[node name="Art" parent="Zones/ZoneSabana" index="1"]
-visible = true
-texture = ExtResource("6_sabana")
-
-[node name="ZoneMangrove" parent="Zones" instance=ExtResource("2_zone")]
+[node name="ZoneMangrove" parent="Zones" unique_id=966419833 instance=ExtResource("2_zone")]
+modulate = Color(0.72, 0.72, 0.72, 1)
 layout_mode = 0
-offset_left = 215.0
-offset_top = 242.0
-offset_right = 425.0
-offset_bottom = 318.0
+offset_left = 431.0
+offset_top = 202.0
+offset_right = 531.0
+offset_bottom = 317.0
+mouse_default_cursor_shape = 2
+flat = true
 biome_id = "mangrove"
-zone_title = "Hutan Mangrove"
+zone_title = ""
 accent = Color(0.4941, 0.7843, 0.6627, 1)
 art = ExtResource("7_mangrove")
+locked_art = ExtResource("14_mlock")
+unlocked_art_path = "res://assets/sprites/map/zones/zone_mangrove.png"
+placeholder_title = "Hutan Bakau"
 locked = true
 
-[node name="Art" parent="Zones/ZoneMangrove" index="1"]
-visible = true
-texture = ExtResource("7_mangrove")
-
-[node name="TopBar" type="Control" parent="."]
+[node name="TopBar" type="Control" parent="." unique_id=1614095827]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -214,38 +398,43 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="CoinIcon" type="Control" parent="TopBar"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 44.0
-offset_right = 28.0
-offset_bottom = 64.0
+[node name="CoinIcon" type="Control" parent="TopBar" unique_id=96917863]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 330.0
+offset_right = 30.0
+offset_bottom = 350.0
 mouse_filter = 2
 script = ExtResource("3_coin")
 
-[node name="CoinLabel" type="Label" parent="TopBar"]
+[node name="CoinLabel" type="Label" parent="TopBar" unique_id=329987536]
 layout_mode = 0
-offset_left = 34.0
-offset_top = 44.0
-offset_right = 234.0
-offset_bottom = 68.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.1176, 0.2392, 0.1608, 1)
+offset_left = 36.0
+offset_top = 328.0
+offset_right = 136.0
+offset_bottom = 352.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.1176, 0.2392, 0.1608, 1)
+theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 16
-text = "Koin: 0"
+text = "0"
 vertical_alignment = 1
 
-[node name="ShopButton" type="Button" parent="TopBar"]
+[node name="ShopButton" type="Button" parent="TopBar" unique_id=395599254]
 layout_mode = 0
-offset_left = 540.0
-offset_top = 44.0
-offset_right = 630.0
-offset_bottom = 80.0
+offset_left = 560.0
+offset_top = 290.0
+offset_right = 632.0
+offset_bottom = 352.0
+pivot_offset = Vector2(36, 31)
 focus_mode = 0
-theme_override_font_sizes/font_size = 16
-text = "Toko"
+mouse_default_cursor_shape = 2
+flat = true
+icon = ExtResource("19_shop")
+icon_alignment = 1
+expand_icon = true
 
-[node name="Overlay" type="Control" parent="."]
+[node name="Overlay" type="Control" parent="." unique_id=334917725]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

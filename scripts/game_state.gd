@@ -71,6 +71,25 @@ var biome_progress: Dictionary = {}
 var current_biome := "hujan"
 var last_run: Dictionary = {}
 
+## Jumlah bibit yang sudah ditanam per jenis (dari pembelian di toko).
+var planted: Dictionary = {"meranti": 0, "akasia": 0, "bakau": 0}
+## Kesuburan peta. Naik setiap beli bibit/pupuk, menentukan tahap hijau peta.
+var fertility := 0
+
+## Ambang fertility untuk tahap peta 0, 1, 2, 3. Ubah di sini kalau perlu.
+const MAP_STAGE_THRESHOLDS: Array[int] = [0, 3, 6, 10]
+
+## Efek tiap item toko: "plant" = jenis pohon yang ditanam (boleh kosong),
+## "fertility" = tambahan kesuburan.
+const PURCHASE_EFFECTS := {
+	"meranti": {"plant": "meranti", "fertility": 1},
+	"akasia": {"plant": "akasia", "fertility": 1},
+	"bakau": {"plant": "bakau", "fertility": 1},
+	"kompos": {"plant": "", "fertility": 1},
+	"kandang": {"plant": "", "fertility": 1},
+	"super": {"plant": "", "fertility": 2},
+}
+
 ## Notifikasi kecil yang ditampilkan peta saat kembali dari bioma.
 var pending_map_toast := ""
 ## Agar popup "semua bioma selesai" tidak muncul berulang-ulang tiap frame.
@@ -252,6 +271,8 @@ func save_game() -> void:
 		"owned_cards": owned_cards,
 		"settings": settings,
 		"biome_progress": biome_progress,
+		"planted": planted,
+		"fertility": fertility,
 	}
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f == null:
@@ -291,6 +312,15 @@ func load_game() -> void:
 			"quiz_done": bool(p.get("quiz_done", false)),
 			"quiz_best": float(p.get("quiz_best", 0.0)),
 		}
+
+	## Save lama tanpa data tanam tetap aman: default 0.
+	var loaded_planted: Variant = data.get("planted", {})
+	for tree_id in planted:
+		var count := 0
+		if typeof(loaded_planted) == TYPE_DICTIONARY:
+			count = int(loaded_planted.get(tree_id, 0))
+		planted[tree_id] = maxi(count, 0)
+	fertility = maxi(int(data.get("fertility", 0)), 0)
 
 
 # ---------------------------------------------------------------- progres --
@@ -360,6 +390,30 @@ func spend_coins(amount: int) -> bool:
 	coins_changed.emit(coins)
 	save_game()
 	return true
+
+
+# ----------------------------------------------------------------- tanam --
+
+## Catat pembelian item toko (bibit/pupuk) supaya peta makin hijau.
+func record_purchase(item_id: String) -> void:
+	if not PURCHASE_EFFECTS.has(item_id):
+		push_warning("record_purchase: item tidak dikenal '%s'" % item_id)
+		return
+	var effect: Dictionary = PURCHASE_EFFECTS[item_id]
+	var plant_id := String(effect.get("plant", ""))
+	if plant_id != "":
+		planted[plant_id] = int(planted.get(plant_id, 0)) + 1
+	fertility += int(effect.get("fertility", 0))
+	save_game()
+
+
+## Tahap kehijauan peta (0-3) berdasarkan fertility.
+func get_map_stage() -> int:
+	var stage := 0
+	for i in range(MAP_STAGE_THRESHOLDS.size()):
+		if fertility >= MAP_STAGE_THRESHOLDS[i]:
+			stage = i
+	return stage
 
 
 # ------------------------------------------------------------------ kartu --
