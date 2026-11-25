@@ -8,14 +8,16 @@ const COLOR_RIGHT_BORDER := Color("7ed957")
 const COLOR_WRONG_BG := Color("6b2f2f")
 const COLOR_WRONG_BORDER := Color("c05050")
 
-## Ukuran layout layar soal (viewport 640x360).
-const PANEL_X := 20.0
-const PANEL_Y := 46.0
+## Ukuran layout layar soal (viewport 640x360). Posisi diatur container:
+## header + progress bar + panel dikelompokkan dan di-center otomatis.
 const PANEL_W := 600.0
 ## Lebar isi panel = PANEL_W - 2 * (margin 12 + border 3).
 const INNER_W := 570
-const BAR_X := 140.0
-const BAR_W := 360.0
+## Progress bar selebar panel soal.
+const BAR_W := PANEL_W
+const BAR_H := 8.0
+## Jarak ekstra antara teks soal dan tombol pilihan (di atas separation vbox).
+const QUESTION_GAP := 6.0
 
 var biome_id := "hujan"
 var biome: Dictionary
@@ -25,7 +27,9 @@ var _correct := 0
 var _locked := false
 var _scored := false
 
-var _content: Control
+## Wadah tiap layar (intro/soal/skor); CenterContainer full-rect supaya
+## isinya selalu di tengah layar, termasuk saat panel bertambah tinggi.
+var _content: CenterContainer
 var _bar_fill: ColorRect
 var _after_box: VBoxContainer
 var _option_buttons: Array[Button] = []
@@ -38,7 +42,7 @@ func _ready() -> void:
 	_questions = biome["quiz"]
 	_apply_background()
 
-	_content = Control.new()
+	_content = CenterContainer.new()
 	UI.full_rect(_content)
 	add_child(_content)
 
@@ -78,7 +82,6 @@ func _show_intro() -> void:
 	_clear_content()
 
 	var box := UI.panel_box(Vector2(470, 0))
-	UI.center_control(box)
 	_content.add_child(box)
 
 	var v := UI.vbox(12)
@@ -119,35 +122,42 @@ func _show_question() -> void:
 	_clear_content()
 	_locked = false
 
-	var head := UI.label(
+	# Satu kelompok: header, progress bar, panel soal. Di-center oleh _content.
+	var group := UI.vbox(8)
+	group.alignment = BoxContainer.ALIGNMENT_CENTER
+	_content.add_child(group)
+
+	group.add_child(UI.label(
 		"Soal %d/%d" % [_index + 1, _questions.size()],
 		15, UI.CREAM, HORIZONTAL_ALIGNMENT_CENTER
-	)
-	head.position = Vector2(0, 6)
-	head.size = Vector2(640, 22)
-	_content.add_child(head)
+	))
 
+	# Latar bar = kontrol berukuran tetap; isi bar ditumpuk di atasnya.
 	var bar_bg := ColorRect.new()
 	bar_bg.color = Color(1, 1, 1, 0.16)
-	bar_bg.position = Vector2(BAR_X, 32)
-	bar_bg.size = Vector2(BAR_W, 8)
-	_content.add_child(bar_bg)
+	bar_bg.custom_minimum_size = Vector2(BAR_W, BAR_H)
+	bar_bg.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	group.add_child(bar_bg)
 
 	_bar_fill = ColorRect.new()
 	_bar_fill.color = Color("7ed957")
-	_bar_fill.position = Vector2(BAR_X, 32)
-	_bar_fill.size = Vector2(BAR_W * float(_index) / float(_questions.size()), 8)
-	_content.add_child(_bar_fill)
+	_bar_fill.size = Vector2(BAR_W * float(_index) / float(_questions.size()), BAR_H)
+	bar_bg.add_child(_bar_fill)
 
 	var box := UI.panel_box(Vector2(PANEL_W, 0))
-	box.position = Vector2(PANEL_X, PANEL_Y)
-	_content.add_child(box)
+	box.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	group.add_child(box)
 
 	var v := UI.vbox(8)
 	box.add_child(v)
 
 	var q: Dictionary = _questions[_index]
 	v.add_child(UI.label(String(q["q"]), 15, UI.CREAM, HORIZONTAL_ALIGNMENT_LEFT, INNER_W))
+
+	var gap := Control.new()
+	gap.custom_minimum_size = Vector2(0, QUESTION_GAP)
+	gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(gap)
 
 	# 4 pilihan dalam grid 2x2, urutan A-D sesuai data.
 	var grid := GridContainer.new()
@@ -260,7 +270,6 @@ func _show_score() -> void:
 		GameState.mark_quiz_done(biome_id, pct)
 
 	var box := UI.panel_box(Vector2(460, 0))
-	UI.center_control(box)
 	_content.add_child(box)
 
 	var v := UI.vbox(10)
