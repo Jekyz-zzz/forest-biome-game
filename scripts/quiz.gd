@@ -1,6 +1,21 @@
 extends Control
-## Kuis pilihan ganda 5 soal per bioma.
-## Alur: intro -> soal (opsi diacak) -> skor + pesan -> kembali ke peta.
+## Kuis pilihan ganda 5 soal per bioma, 4 pilihan (A-D) per soal.
+## Alur: intro -> soal -> feedback + penjelasan -> "Lanjut" -> ... -> skor -> peta.
+
+const LETTERS := ["A", "B", "C", "D"]
+const COLOR_RIGHT_BG := Color("3f7a3a")
+const COLOR_RIGHT_BORDER := Color("7ed957")
+const COLOR_WRONG_BG := Color("6b2f2f")
+const COLOR_WRONG_BORDER := Color("c05050")
+
+## Ukuran layout layar soal (viewport 640x360).
+const PANEL_X := 20.0
+const PANEL_Y := 46.0
+const PANEL_W := 600.0
+## Lebar isi panel = PANEL_W - 2 * (margin 12 + border 3).
+const INNER_W := 570
+const BAR_X := 140.0
+const BAR_W := 360.0
 
 var biome_id := "hujan"
 var biome: Dictionary
@@ -12,8 +27,7 @@ var _scored := false
 
 var _content: Control
 var _bar_fill: ColorRect
-var _options_box: VBoxContainer
-var _feedback: Label
+var _after_box: VBoxContainer
 var _option_buttons: Array[Button] = []
 
 
@@ -50,6 +64,7 @@ func _clear_content() -> void:
 		_content.remove_child(child)
 		child.queue_free()
 	_option_buttons.clear()
+	_after_box = null
 
 
 func _centered(btn: Button) -> Button:
@@ -68,12 +83,17 @@ func _show_intro() -> void:
 
 	var v := UI.vbox(12)
 	box.add_child(v)
-	v.add_child(UI.label("Kuis", 13, Color("bdf2a0"), HORIZONTAL_ALIGNMENT_CENTER))
-	v.add_child(UI.title(String(biome["name"]), 24))
 	v.add_child(UI.label(
-		"Jawab 5 pertanyaan tentang hutan ini. Setiap jawaban benar membawa "
-		+ "kamu selangkah lebih dekat menjadi penjaga hutan.",
-		14, UI.CREAM, HORIZONTAL_ALIGNMENT_CENTER, 410
+		"Kuis  -  %s" % String(biome["name"]),
+		13, Color("bdf2a0"), HORIZONTAL_ALIGNMENT_CENTER
+	))
+	var head := UI.title("Seberapa kenal kamu dengan hutan ini?", 22)
+	head.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	head.custom_minimum_size = Vector2(430, 0)
+	v.add_child(head)
+	v.add_child(UI.label(
+		"%d soal singkat" % _questions.size(),
+		15, UI.CREAM, HORIZONTAL_ALIGNMENT_CENTER
 	))
 
 	var start := _centered(UI.button("Mulai Kuis", 18, Vector2(180, 44)))
@@ -100,55 +120,60 @@ func _show_question() -> void:
 	_locked = false
 
 	var head := UI.label(
-		"Soal %d dari %d" % [_index + 1, _questions.size()],
+		"Soal %d/%d" % [_index + 1, _questions.size()],
 		15, UI.CREAM, HORIZONTAL_ALIGNMENT_CENTER
 	)
-	head.position = Vector2(0, 18)
+	head.position = Vector2(0, 6)
 	head.size = Vector2(640, 22)
 	_content.add_child(head)
 
 	var bar_bg := ColorRect.new()
 	bar_bg.color = Color(1, 1, 1, 0.16)
-	bar_bg.position = Vector2(140, 46)
-	bar_bg.size = Vector2(360, 8)
+	bar_bg.position = Vector2(BAR_X, 32)
+	bar_bg.size = Vector2(BAR_W, 8)
 	_content.add_child(bar_bg)
 
 	_bar_fill = ColorRect.new()
 	_bar_fill.color = Color("7ed957")
-	_bar_fill.position = Vector2(140, 46)
-	_bar_fill.size = Vector2(360.0 * float(_index) / float(_questions.size()), 8)
+	_bar_fill.position = Vector2(BAR_X, 32)
+	_bar_fill.size = Vector2(BAR_W * float(_index) / float(_questions.size()), 8)
 	_content.add_child(_bar_fill)
 
-	var box := UI.panel_box(Vector2(500, 0))
-	box.position = Vector2(70, 68)
+	var box := UI.panel_box(Vector2(PANEL_W, 0))
+	box.position = Vector2(PANEL_X, PANEL_Y)
 	_content.add_child(box)
 
-	var v := UI.vbox(10)
+	var v := UI.vbox(8)
 	box.add_child(v)
 
 	var q: Dictionary = _questions[_index]
-	v.add_child(UI.label(String(q["q"]), 17, UI.CREAM, HORIZONTAL_ALIGNMENT_LEFT, 470))
+	v.add_child(UI.label(String(q["q"]), 15, UI.CREAM, HORIZONTAL_ALIGNMENT_LEFT, INNER_W))
 
-	_options_box = UI.vbox(8)
-	v.add_child(_options_box)
+	# 4 pilihan dalam grid 2x2, urutan A-D sesuai data.
+	var grid := GridContainer.new()
+	grid.columns = 2
+	grid.add_theme_constant_override("h_separation", 8)
+	grid.add_theme_constant_override("v_separation", 6)
+	v.add_child(grid)
 
 	var opts: Array = q["options"]
-	var order: Array[int] = []
+	var btn_w := (float(INNER_W) - 8.0) / 2.0
 	for i in range(opts.size()):
-		order.append(i)
-	order.shuffle()
-
-	for original in order:
-		var b := UI.button(String(opts[original]), 14, Vector2(0, 38))
+		var b := UI.button("%s. %s" % [LETTERS[i], String(opts[i])], 13, Vector2(btn_w, 34))
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		b.pressed.connect(_on_answer.bind(original, b))
-		_options_box.add_child(b)
+		b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		for state in ["normal", "hover", "pressed", "disabled"]:
+			var sb := b.get_theme_stylebox(state) as StyleBoxFlat
+			if sb != null:
+				_tight_margins(sb)
+		b.pressed.connect(_on_answer.bind(i, b))
+		grid.add_child(b)
 		_option_buttons.append(b)
 
-	_feedback = UI.label("", 14, UI.CREAM, HORIZONTAL_ALIGNMENT_CENTER, 470)
-	_feedback.custom_minimum_size = Vector2(0, 22)
-	v.add_child(_feedback)
+	# Area feedback + penjelasan + "Lanjut", diisi setelah menjawab.
+	_after_box = UI.vbox(4)
+	v.add_child(_after_box)
 
 
 func _on_answer(chosen: int, btn: Button) -> void:
@@ -157,33 +182,47 @@ func _on_answer(chosen: int, btn: Button) -> void:
 	_locked = true
 
 	var q: Dictionary = _questions[_index]
-	var opts: Array = q["options"]
 	var correct := int(q["answer"])
 
 	for b in _option_buttons:
 		b.disabled = true
 
+	var feedback: Label
 	if chosen == correct:
 		_correct += 1
-		_feedback.text = "Benar!"
-		_feedback.add_theme_color_override("font_color", Color("bdf2a0"))
-		_paint(btn, Color("3f7a3a"), Color("7ed957"))
+		feedback = UI.label("Tepat sekali!", 15, Color("bdf2a0"))
+		_paint(btn, COLOR_RIGHT_BG, COLOR_RIGHT_BORDER)
 	else:
-		_feedback.text = "Belum tepat. Jawaban: %s" % String(opts[correct])
-		_feedback.add_theme_color_override("font_color", UI.RED)
-		_paint(btn, Color("6b2f2f"), Color("c05050"))
-		for b in _option_buttons:
-			if b.text == String(opts[correct]):
-				_paint(b, Color("3f7a3a"), Color("7ed957"))
-				break
+		feedback = UI.label("Belum tepat, yuk ingat lagi.", 15, UI.RED)
+		_paint(btn, COLOR_WRONG_BG, COLOR_WRONG_BORDER)
+		_paint(_option_buttons[correct], COLOR_RIGHT_BG, COLOR_RIGHT_BORDER)
 
 	var tw := create_tween()
 	tw.tween_property(
 		_bar_fill, "size:x",
-		360.0 * float(_index + 1) / float(_questions.size()), 0.3
+		BAR_W * float(_index + 1) / float(_questions.size()), 0.3
 	)
 
-	await get_tree().create_timer(1.5).timeout
+	# Feedback + penjelasan di kiri, tombol "Lanjut" di kanan.
+	var row := UI.hbox(10)
+	_after_box.add_child(row)
+
+	var text_col := UI.vbox(2)
+	text_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(text_col)
+	text_col.add_child(feedback)
+	text_col.add_child(UI.label(
+		String(q.get("explanation", "")), 13, UI.CREAM, HORIZONTAL_ALIGNMENT_LEFT, INNER_W - 120
+	))
+
+	var next := UI.button("Lanjut", 15, Vector2(110, 36))
+	next.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	next.pressed.connect(_next_question)
+	row.add_child(next)
+	next.grab_focus.call_deferred()
+
+
+func _next_question() -> void:
 	_index += 1
 	if _index >= _questions.size():
 		_show_score()
@@ -191,10 +230,19 @@ func _on_answer(chosen: int, btn: Button) -> void:
 		_show_question()
 
 
+func _tight_margins(sb: StyleBoxFlat) -> void:
+	sb.content_margin_left = 10
+	sb.content_margin_right = 10
+	sb.content_margin_top = 6
+	sb.content_margin_bottom = 6
+
+
 func _paint(b: Button, bg: Color, border: Color) -> void:
 	var sb := UI.flat(bg, 10)
 	sb.set_border_width_all(2)
 	sb.border_color = border
+	_tight_margins(sb)
+	b.add_theme_color_override("font_disabled_color", UI.CREAM)
 	b.add_theme_stylebox_override("disabled", sb)
 	b.add_theme_stylebox_override("normal", sb)
 	b.add_theme_stylebox_override("hover", sb)
@@ -220,7 +268,7 @@ func _show_score() -> void:
 
 	v.add_child(UI.title("Kuis Selesai!", 24))
 	v.add_child(UI.label(
-		"Skor: %d/%d (%d%%)" % [_correct, total, int(round(pct))],
+		"Skor kamu: %d%%" % int(round(pct)),
 		20, UI.GOLD, HORIZONTAL_ALIGNMENT_CENTER
 	))
 
@@ -244,7 +292,7 @@ func _show_score() -> void:
 		tw.tween_property(s, "scale", Vector2.ONE, 0.35)
 
 	v.add_child(UI.label(
-		_tier_message(_correct, total),
+		_tier_message(pct),
 		14, UI.CREAM, HORIZONTAL_ALIGNMENT_CENTER, 400
 	))
 
@@ -257,14 +305,12 @@ func _show_score() -> void:
 	v.add_child(retry)
 
 
-func _tier_message(score: int, total: int) -> String:
-	if score == total:
-		return "Sempurna! Kamu benar-benar penjaga hutan."
-	if score >= total - 1:
-		return "Hebat! Pengetahuanmu tentang hutan sudah kuat."
-	if score >= total - 2:
-		return "Bagus! Sedikit lagi kamu jadi ahli hutan."
-	return "Jangan menyerah! Pelajari lagi dan coba kembali."
+func _tier_message(pct: float) -> String:
+	if pct >= 80.0:
+		return "Luar biasa! Kamu penjaga hutan sejati."
+	if pct >= 50.0:
+		return "Bagus! Sedikit lagi jadi ahlinya."
+	return "Jangan menyerah, rimba menunggu kamu belajar lagi."
 
 
 func _leave() -> void:

@@ -2,6 +2,12 @@ class_name BiomeData
 extends RefCounted
 ## Data statis semua bioma: teks dialog, kuis, warna, dan mini-game-nya.
 ## Semua teks diambil dari dokumen desain "KEBANGKITAN".
+##
+## Format soal kuis:
+##   "q":           teks soal
+##   "options":     4 pilihan, urutan A-D sesuai storyboard
+##   "answer":      indeks pilihan yang benar (0 = A, 1 = B, 2 = C, 3 = D)
+##   "explanation": penjelasan yang tampil setelah pemain menjawab
 
 const BIOMES := {
 	"hujan": {
@@ -24,7 +30,7 @@ const BIOMES := {
 			},
 			{
 				"name": "Harimau Sumatera",
-				"text": "Aku penjaga rimba yang hidup di Sumatera dan Kalimantan. Setiap jejakku menandakan hutan ini masih sehat. Jika rumahku hilang, aku pun ikut lenyap.",
+				"text": "Aku penjaga rimba yang hanya hidup di Sumatera. Setiap jejakku menandakan hutan ini masih sehat. Jika rumahku hilang, aku pun ikut lenyap.",
 			},
 			{
 				"name": "Rafflesia arnoldi",
@@ -33,29 +39,49 @@ const BIOMES := {
 		],
 		"quiz": [
 			{
-				"q": "Apa pohon utama di Hutan Hujan Tropis?",
-				"options": ["Meranti", "Akasia", "Bakau merah"],
-				"answer": 0,
+				"q": "Hewan pemangsa langka yang hidup di hutan hujan Sumatera adalah...",
+				"options": ["Komodo", "Bekantan", "Singa", "Harimau sumatera"],
+				"answer": 3,
+				"explanation": "Harimau sumatera hanya hidup liar di Pulau Sumatera. Kalau hutannya hilang, rumahnya ikut hilang.",
 			},
 			{
-				"q": "Hewan apa yang menjadi penjaga rimba di hutan ini?",
-				"options": ["Harimau Sumatera", "Bekantan", "Komodo"],
-				"answer": 0,
+				"q": "Pohon raksasa khas hutan hujan yang menjulang tinggi adalah pohon...",
+				"options": ["Akasia", "Bakau merah", "Meranti", "Kelapa"],
+				"answer": 2,
+				"explanation": "Meranti tumbuh tinggi di tanah yang sangat basah, hangat, dan lembap, dan teduhnya menjadi tempat hidup banyak makhluk.",
 			},
 			{
-				"q": "Bunga terbesar di dunia yang tumbuh di hutan hujan adalah...",
-				"options": ["Rafflesia arnoldi", "Anggrek bulan", "Melati"],
-				"answer": 0,
+				"q": "Rafflesia arnoldii dikenal sebagai...",
+				"options": [
+					"Pohon tertinggi di dunia",
+					"Bunga terbesar di dunia",
+					"Rumput tertinggi",
+					"Buah termanis",
+				],
+				"answer": 1,
+				"explanation": "Rafflesia arnoldii tumbuh di lantai hutan hujan, dan bunganya bisa selebar sekitar satu meter.",
 			},
 			{
-				"q": "Hutan hujan tropis dikenal sebagai...",
-				"options": ["Paru-paru dunia", "Benteng abrasi pantai", "Lumbung pangan dunia"],
+				"q": "Mengapa hutan hujan tropis sering disebut \"paru-paru dunia\"?",
+				"options": [
+					"Pohonnya menyerap karbon dioksida dan melepas oksigen",
+					"Bentuknya mirip paru-paru",
+					"Tidak punya pohon",
+					"Membuat udara jadi beku",
+				],
 				"answer": 0,
+				"explanation": "Lewat fotosintesis, pohon ikut menyaring udara dan menyimpan karbon.",
 			},
 			{
-				"q": "Di mana saja hutan hujan tropis banyak dijumpai di Indonesia?",
-				"options": ["Sumatera dan Kalimantan", "NTT dan NTB", "Jawa saja"],
-				"answer": 0,
+				"q": "Bagaimana cuaca di hutan hujan tropis?",
+				"options": [
+					"Kering dan berdebu",
+					"Sangat basah, hangat, dan lembap sepanjang tahun",
+					"Dingin dan bersalju",
+					"Kemarau sangat panjang",
+				],
+				"answer": 1,
+				"explanation": "Hujan turun hampir sepanjang tahun, jadi pepohonan bisa tumbuh tinggi dan rapat.",
 			},
 		],
 	},
@@ -79,7 +105,7 @@ const BIOMES := {
 			},
 			{
 				"name": "Komodo",
-				"text": "Aku penguasa padang di Nusa Tenggara Timur dan Nusa Tenggara Barat. Langkahku lambat, tapi aku tahu padang ini adalah satu-satunya rumahku.",
+				"text": "Aku penguasa padang di Nusa Tenggara Timur. Langkahku lambat, tapi aku tahu padang ini adalah satu-satunya rumahku.",
 			},
 			{
 				"name": "Rumput Gajah",
@@ -88,33 +114,44 @@ const BIOMES := {
 		],
 		"quiz": [
 			{
-				"q": "Apa pohon utama yang tumbuh di Hutan Sabana?",
-				"options": ["Akasia", "Meranti", "Bakau merah"],
-				"answer": 0,
-			},
-			{
-				"q": "Hewan penguasa padang sabana di Nusa Tenggara adalah...",
-				"options": ["Komodo", "Harimau Sumatera", "Bekantan"],
-				"answer": 0,
-			},
-			{
-				"q": "Tumbuhan yang menjadi makanan herbivora besar di sabana adalah...",
-				"options": ["Rumput Gajah", "Rafflesia arnoldi", "Pohon api-api"],
-				"answer": 0,
-			},
-			{
-				"q": "Bagaimana cuaca di hutan sabana?",
+				"q": "Bagaimana cuaca di sabana?",
 				"options": [
-					"Kemarau sangat panjang dan kering",
-					"Basah dan lembap sepanjang tahun",
-					"Angin laut kencang tiap hari",
+					"Hujan turun setiap hari",
+					"Dingin dan bersalju",
+					"Musim kemarau sangat panjang, kering, dan terik di siang hari",
+					"Lembap dan berkabut sepanjang tahun",
 				],
-				"answer": 0,
+				"answer": 2,
+				"explanation": "Air yang sedikit membuat rumput lebih mudah bertahan daripada pohon besar.",
+			},
+			{
+				"q": "Kadal terbesar di dunia yang hidup di padang sabana Nusa Tenggara Timur adalah...",
+				"options": ["Bunglon", "Komodo", "Cicak", "Bekantan"],
+				"answer": 1,
+				"explanation": "Komodo hanya hidup liar di Indonesia, di Nusa Tenggara Timur.",
+			},
+			{
+				"q": "Rumput tinggi yang menjadi makanan penting bagi mamalia dan herbivora besar di sabana adalah rumput...",
+				"options": ["Laut", "Teki", "Gajah", "Jepang"],
+				"answer": 2,
+				"explanation": "Rumput gajah membuat sabana tetap menjadi habitat bagi mamalia dan herbivora besar.",
+			},
+			{
+				"q": "Pohon berkanopi lebar yang tahan kemarau dan tumbuh di padang sabana adalah...",
+				"options": ["Meranti", "Bakau merah", "Akasia", "Api-api"],
+				"answer": 2,
+				"explanation": "Akasia tahan kering, dan teduhnya menjadi tempat berlindung hewan dari terik matahari.",
 			},
 			{
 				"q": "Sabana di Indonesia banyak dijumpai di...",
-				"options": ["NTT dan NTB", "Sumatera dan Kalimantan", "Papua dan Jawa"],
-				"answer": 0,
+				"options": [
+					"Puncak gunung bersalju",
+					"Nusa Tenggara Timur dan Nusa Tenggara Barat",
+					"Dasar laut",
+					"Tengah kota",
+				],
+				"answer": 1,
+				"explanation": "Kemarau yang panjang di Nusa Tenggara membuat padang rumput lebih mudah tumbuh daripada hutan lebat.",
 			},
 		],
 	},
@@ -138,7 +175,7 @@ const BIOMES := {
 			},
 			{
 				"name": "Bekantan",
-				"text": "Aku tinggal di hutan bakau Papua, Sumatera, dan Jawa. Dahan-dahan ini rumahku, tempat bermain, sekaligus tempat aku mencari makan.",
+				"text": "Aku hanya hidup di hutan bakau Kalimantan. Dahan-dahan ini rumahku, tempat bermain, sekaligus tempat aku mencari makan.",
 			},
 			{
 				"name": "Pohon Api-api",
@@ -147,29 +184,49 @@ const BIOMES := {
 		],
 		"quiz": [
 			{
-				"q": "Apa pohon utama di Hutan Mangrove?",
-				"options": ["Bakau merah", "Akasia", "Meranti"],
-				"answer": 0,
+				"q": "Pohon utama mangrove yang akar tunjangnya menopang batang di dalam air adalah...",
+				"options": ["Meranti", "Akasia", "Bakau merah", "Rumput gajah"],
+				"answer": 2,
+				"explanation": "Akar tunjang membuat bakau merah kokoh, tidak mudah tumbang walau diterjang pasang surut dan angin laut.",
 			},
 			{
-				"q": "Hewan berhidung panjang yang hidup di hutan bakau adalah...",
-				"options": ["Bekantan", "Komodo", "Orang utan"],
+				"q": "Monyet berhidung panjang yang hidup di hutan mangrove adalah...",
+				"options": ["Bekantan", "Zebra", "Pinguin", "Singa"],
 				"answer": 0,
+				"explanation": "Bekantan memakan daun dan buah dari pepohonan mangrove. Kalau mangrove rusak, tempat tinggal dan makanannya ikut hilang.",
 			},
 			{
-				"q": "Tumbuhan dengan akar napas yang mencuat dari lumpur adalah...",
-				"options": ["Pohon api-api", "Rumput gajah", "Paku-pakuan"],
-				"answer": 0,
+				"q": "Pohon api-api bersama pohon mangrove lainnya menjadi benteng pantai karena...",
+				"options": [
+					"Menambah tinggi ombak",
+					"Mengeringkan air laut",
+					"Membuat pantai makin sempit",
+					"Meredam ombak dan menahan abrasi",
+				],
+				"answer": 3,
+				"explanation": "Akar mangrove menahan gelombang, jadi daratan di belakangnya terlindung dari hantaman ombak.",
 			},
 			{
-				"q": "Apa manfaat utama hutan mangrove bagi pantai?",
-				"options": ["Benteng abrasi pantai", "Paru-paru dunia", "Sumber minyak bumi"],
-				"answer": 0,
+				"q": "Apa yang terjadi di hutan mangrove setiap hari?",
+				"options": [
+					"Salju turun",
+					"Air laut pasang dan surut",
+					"Tanah selalu kering",
+					"Daun berubah warna",
+				],
+				"answer": 1,
+				"explanation": "Air laut naik-turun setiap hari, makanya akar mangrove harus kokoh mencengkeram lumpur.",
 			},
 			{
 				"q": "Hutan mangrove di Indonesia banyak dijumpai di...",
-				"options": ["Papua, Sumatera, dan Jawa", "NTT dan NTB", "Kalimantan saja"],
+				"options": [
+					"Pesisir Papua, Sumatera, dan Jawa",
+					"Puncak gunung",
+					"Gurun pasir",
+					"Danau di dataran tinggi",
+				],
 				"answer": 0,
+				"explanation": "Mangrove tumbuh di pesisir, di tempat air laut dan air sungai bertemu.",
 			},
 		],
 	},
