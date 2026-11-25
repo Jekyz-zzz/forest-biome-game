@@ -198,6 +198,11 @@ func _apply_ui_theme() -> void:
 		if font != null:
 			theme.default_font = font
 			break
+	# Tombol biasa memakai MagicSound (lihat ui_theme.tres), tetapi tombol
+	# berteks panjang ("ButtonLong", mis. pilihan kuis) memakai font biasa
+	# yang sama dengan label supaya mudah dibaca.
+	var body_font: Font = theme.default_font if theme.default_font != null else ThemeDB.fallback_font
+	theme.set_font("font", "ButtonLong", body_font)
 	get_tree().root.theme = theme
 
 

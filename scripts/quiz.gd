@@ -170,13 +170,11 @@ func _show_question() -> void:
 	var btn_w := (float(INNER_W) - 8.0) / 2.0
 	for i in range(opts.size()):
 		var b := UI.button("%s. %s" % [LETTERS[i], String(opts[i])], 13, Vector2(btn_w, 34))
+		# Teks pilihan panjang: font biasa + margin rapat (variasi theme "ButtonLong").
+		b.theme_type_variation = &"ButtonLong"
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 		b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		for state in ["normal", "hover", "pressed", "disabled"]:
-			var sb := b.get_theme_stylebox(state) as StyleBoxFlat
-			if sb != null:
-				_tight_margins(sb)
 		b.pressed.connect(_on_answer.bind(i, b))
 		grid.add_child(b)
 		_option_buttons.append(b)

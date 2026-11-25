@@ -26,10 +26,11 @@ func _ready() -> void:
 
 	var star_holder := Control.new()
 	star_holder.custom_minimum_size = Vector2(160, 44)
+	star_holder.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	box.add_child(star_holder)
 	for i in range(3):
 		var s := UI.star(15, UI.GOLD if i < stars else Color("39493a"))
-		s.position = Vector2(30.0 + 44.0 * float(i), 22)
+		s.position = Vector2(36.0 + 44.0 * float(i), 22)  # tengah holder 160 px
 		star_holder.add_child(s)
 		s.scale = Vector2.ZERO
 		var tw := create_tween()
@@ -48,6 +49,7 @@ func _ready() -> void:
 		box.add_child(UI.label(note, 15, Color("ffe9a8"), HORIZONTAL_ALIGNMENT_CENTER))
 
 	var next := UI.button("Lanjut ke Kuis", 18, Vector2(200, 46))
+	next.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	next.pressed.connect(_on_next)
 	box.add_child(next)
 

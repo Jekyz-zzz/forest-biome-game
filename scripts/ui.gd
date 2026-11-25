@@ -8,9 +8,6 @@ const GREEN := Color("7ed957")
 const DARK_GREEN := Color("2e5d33")
 const RED := Color("e8a9a9")
 
-const BTN_NORMAL := Color("3c6b34")
-const BTN_HOVER := Color("4e8742")
-const BTN_PRESSED := Color("2e5228")
 const PANEL_BG := Color(0.07, 0.14, 0.09, 0.94)
 const PANEL_BORDER := Color("4e7a3a")
 
@@ -35,23 +32,74 @@ static func label(
 
 static func title(text: String, font_size: int, color: Color = CREAM) -> Label:
 	var l := label(text, font_size, color, HORIZONTAL_ALIGNMENT_CENTER)
+	l.theme_type_variation = &"TitleLabel"  # font MagicSound, lihat ui_theme.tres
 	l.add_theme_color_override("font_outline_color", Color(0.05, 0.1, 0.06, 0.9))
 	l.add_theme_constant_override("outline_size", 8)
 	return l
 
 
+## Tampilan tombol (warna, papan kayu, font MagicSound) diatur di
+## assets/ui_theme.tres. Di sini hanya ukuran font + efek hover membesar.
 static func style_button(b: Button, font_size := 16) -> Button:
 	b.add_theme_font_size_override("font_size", font_size)
-	b.add_theme_color_override("font_color", CREAM)
-	b.add_theme_color_override("font_hover_color", Color.WHITE)
-	b.add_theme_color_override("font_focus_color", CREAM)
-	b.add_theme_color_override("font_pressed_color", Color("cfe3ba"))
-	b.add_theme_stylebox_override("normal", flat(BTN_NORMAL))
-	b.add_theme_stylebox_override("hover", flat(BTN_HOVER))
-	b.add_theme_stylebox_override("pressed", flat(BTN_PRESSED))
-	b.add_theme_stylebox_override("disabled", flat(Color(0.35, 0.38, 0.33, 0.7)))
-	b.add_theme_stylebox_override("focus", flat(Color.TRANSPARENT, 0))
+	add_hover_motion(b)
 	return b
+
+
+# ------------------------------------------------------------ efek hover --
+
+## Batas pembesaran saat hover: maksimal 6% dan maksimal ~6 px per sisi,
+## supaya tombol lebar (mis. pilihan kuis) tidak menutupi tetangganya.
+const HOVER_MAX_SCALE := 1.06
+const HOVER_MAX_GROW_PX := 6.0
+const HOVER_TIME := 0.12
+
+
+## Tombol membesar halus dari tengah saat hover. Hanya mengubah `scale`
+## (visual), bukan ukuran/posisi, jadi layout container tidak bergeser.
+static func add_hover_motion(b: Button) -> void:
+	if b.has_meta(&"ui_hover_motion"):
+		return
+	b.set_meta(&"ui_hover_motion", true)
+	b.mouse_entered.connect(func() -> void: _hover_to(b, true))
+	b.mouse_exited.connect(func() -> void: _hover_to(b, false))
+	# Pivot selalu di tengah. Container me-reset scale saat menata ulang,
+	# jadi scale hover dipasang lagi sesudahnya.
+	b.resized.connect(func() -> void: (func() -> void: _sync_hover(b)).call_deferred())
+	# Tombol yang di-disable saat masih di-hover (mis. pilihan kuis) mengecil lagi.
+	b.draw.connect(func() -> void:
+		if b.disabled and b.scale != Vector2.ONE:
+			_hover_to(b, false))
+	_sync_hover(b)
+
+
+static func _hover_scale(b: Button) -> Vector2:
+	var longest := maxf(maxf(b.size.x, b.size.y), 1.0)
+	var s := minf(HOVER_MAX_SCALE, 1.0 + 2.0 * HOVER_MAX_GROW_PX / longest)
+	return Vector2(s, s)
+
+
+static func _hover_to(b: Button, on: bool) -> void:
+	if not is_instance_valid(b) or not b.is_inside_tree():
+		return
+	b.pivot_offset = b.size / 2.0
+	var target := _hover_scale(b) if on and not b.disabled else Vector2.ONE
+	if b.has_meta(&"ui_hover_tween"):
+		var old := b.get_meta(&"ui_hover_tween") as Tween
+		if old != null and old.is_valid():
+			old.kill()
+	var tw := b.create_tween()
+	tw.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tw.tween_property(b, "scale", target, HOVER_TIME)
+	b.set_meta(&"ui_hover_tween", tw)
+
+
+static func _sync_hover(b: Button) -> void:
+	if not is_instance_valid(b):
+		return
+	b.pivot_offset = b.size / 2.0
+	if b.is_hovered() and not b.disabled:
+		b.scale = _hover_scale(b)
 
 
 static func button(text: String, font_size := 16, min_size := Vector2(140, 40)) -> Button:

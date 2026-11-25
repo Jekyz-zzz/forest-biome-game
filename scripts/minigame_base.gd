@@ -90,6 +90,9 @@ func _build_hud() -> void:
 	pause_btn.position = Vector2(560, 6)
 	pause_btn.pressed.connect(_set_paused.bind(true))
 	_hud_layer.add_child(pause_btn)
+	# Teks MagicSound lebih lebar dari 70 px: tepi kanan tetap di x=630.
+	pause_btn.reset_size()
+	pause_btn.position.x = 630.0 - pause_btn.size.x
 
 	_freeze_label = UI.label("", 18, Color("bfe8ff"), HORIZONTAL_ALIGNMENT_CENTER)
 	_freeze_label.size = Vector2(600, 30)

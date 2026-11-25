@@ -133,11 +133,13 @@ func _refresh_tabs() -> void:
 	for tab_id in _tab_buttons:
 		var b: Button = _tab_buttons[tab_id]
 		var active: bool = String(tab_id) == _tab
-		var sb := UI.flat(Color("4e8742") if active else Color("2e5228"), 8)
+		# Warna dari theme (ui_theme.tres); tab aktif = gaya hover + border emas.
+		b.remove_theme_stylebox_override("normal")
 		if active:
-			sb.set_border_width_all(2)
-			sb.border_color = UI.GOLD
-		b.add_theme_stylebox_override("normal", sb)
+			var sb := b.get_theme_stylebox("hover").duplicate() as StyleBox
+			if sb is StyleBoxFlat:
+				(sb as StyleBoxFlat).border_color = UI.GOLD
+			b.add_theme_stylebox_override("normal", sb)
 
 
 # ---------------------------------------------------------------- panel --
