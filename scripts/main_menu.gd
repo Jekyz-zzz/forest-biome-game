@@ -14,6 +14,10 @@ const INK_PRESSED := Color("38200c")
 const CREAM_OUTLINE := Color("f5e6b8")
 const SHADOW := Color(0.15, 0.08, 0.02, 0.55)
 
+## Ukuran font teks papan, seragam untuk PLAY/SETTING/EXIT. 12 dipilih agar
+## "SETTING" (~102 px) muat di badan papan (~120 px) dengan margin.
+const PLANK_FONT_SIZE := 12
+
 @onready var _background: TextureRect = $Background
 @onready var _play_button: Button = $Planks/PlayButton
 @onready var _setting_button: Button = $Planks/SettingButton
@@ -46,7 +50,7 @@ func _style_plank(b: Button, action: Callable) -> void:
 
 	if _menu_font != null:
 		b.add_theme_font_override("font", _menu_font)
-	b.add_theme_font_size_override("font_size", 18)
+	b.add_theme_font_size_override("font_size", PLANK_FONT_SIZE)
 	b.add_theme_color_override("font_color", INK)
 	b.add_theme_color_override("font_hover_color", INK_HOVER)
 	b.add_theme_color_override("font_pressed_color", INK_PRESSED)
@@ -58,8 +62,13 @@ func _style_plank(b: Button, action: Callable) -> void:
 	b.add_theme_constant_override("shadow_offset_y", 3)
 	b.add_theme_constant_override("shadow_outline_size", 3)
 
+	# Area tombol menutupi seluruh papan (ekor sampai ujung panah); teks
+	# diletakkan di tengah BADAN papan lewat margin kiri/kanan dari metadata
+	# node (text_margin_left/right, bisa diatur di Inspector).
 	var empty := StyleBoxEmpty.new()
 	empty.set_content_margin_all(0)
+	empty.content_margin_left = float(b.get_meta("text_margin_left", 0.0))
+	empty.content_margin_right = float(b.get_meta("text_margin_right", 0.0))
 	for state in ["normal", "hover", "pressed", "focus", "disabled"]:
 		b.add_theme_stylebox_override(state, empty)
 
@@ -218,15 +227,54 @@ func _popup_title(text: String) -> Label:
 	return l
 
 
-func _make_toggle(text: String, key: String) -> CheckBox:
-	var cb := CheckBox.new()
-	cb.text = text
-	cb.add_theme_font_size_override("font_size", 16)
-	cb.add_theme_color_override("font_color", UI.CREAM)
-	cb.add_theme_color_override("font_hover_color", Color.WHITE)
-	cb.button_pressed = bool(GameState.settings.get(key, true))
-	cb.toggled.connect(_on_toggle.bind(key))
-	return cb
+## Ikon pengaturan suara: [nyala (tanpa coret), mati (dicoret)].
+const SOUND_ICONS := {
+	"music": ["res://assets/ui/buttons/btn_sound.png", "res://assets/ui/buttons/btn_mute_music.png"],
+	"sfx": ["res://assets/ui/buttons/btn_speaker.png", "res://assets/ui/buttons/btn_mute_sound.png"],
+}
+## Ukuran tampil ikon (sama untuk semua ikon, apa pun ukuran file-nya).
+const SOUND_ICON_SIZE := Vector2(36, 36)
+## Ikon "mati" sedikit diredupkan; penanda utamanya gambar coret.
+const ICON_OFF_TINT := Color(1, 1, 1, 0.75)
+
+
+## Baris pengaturan: tombol ikon (toggle) + label status.
+## Tombol "pressed" = suara nyala, sama seperti CheckBox sebelumnya.
+func _make_toggle(text: String, key: String) -> Control:
+	var row := UI.hbox(10)
+
+	var icon := TextureButton.new()
+	icon.toggle_mode = true
+	icon.ignore_texture_size = true
+	icon.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	icon.custom_minimum_size = SOUND_ICON_SIZE
+	icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	icon.set_meta("icons", SOUND_ICONS[key])
+	icon.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	icon.button_pressed = bool(GameState.settings.get(key, true))
+	row.add_child(icon)
+
+	var status := UI.label("", 16, UI.CREAM)
+	if _menu_font != null:
+		status.add_theme_font_override("font", _menu_font)
+	status.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	status.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	row.add_child(status)
+
+	_show_toggle_state(icon, status, text, icon.button_pressed)
+	icon.toggled.connect(_on_toggle.bind(key))
+	icon.toggled.connect(func(on: bool) -> void: _show_toggle_state(icon, status, text, on))
+	UI.add_hover_motion(icon)
+	return row
+
+
+func _show_toggle_state(icon: TextureButton, status: Label, text: String, on: bool) -> void:
+	status.text = "%s: %s" % [text, "Nyala" if on else "Mati"]
+	var paths: Array = icon.get_meta("icons", [])
+	if paths.size() == 2:
+		icon.texture_normal = load(paths[0] if on else paths[1]) as Texture2D
+	icon.modulate = Color.WHITE if on else ICON_OFF_TINT
 
 
 func _on_toggle(on: bool, key: String) -> void:

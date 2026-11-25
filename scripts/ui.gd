@@ -57,7 +57,7 @@ const HOVER_TIME := 0.12
 
 ## Tombol membesar halus dari tengah saat hover. Hanya mengubah `scale`
 ## (visual), bukan ukuran/posisi, jadi layout container tidak bergeser.
-static func add_hover_motion(b: Button) -> void:
+static func add_hover_motion(b: BaseButton) -> void:
 	if b.has_meta(&"ui_hover_motion"):
 		return
 	b.set_meta(&"ui_hover_motion", true)
@@ -73,13 +73,13 @@ static func add_hover_motion(b: Button) -> void:
 	_sync_hover(b)
 
 
-static func _hover_scale(b: Button) -> Vector2:
+static func _hover_scale(b: BaseButton) -> Vector2:
 	var longest := maxf(maxf(b.size.x, b.size.y), 1.0)
 	var s := minf(HOVER_MAX_SCALE, 1.0 + 2.0 * HOVER_MAX_GROW_PX / longest)
 	return Vector2(s, s)
 
 
-static func _hover_to(b: Button, on: bool) -> void:
+static func _hover_to(b: BaseButton, on: bool) -> void:
 	if not is_instance_valid(b) or not b.is_inside_tree():
 		return
 	b.pivot_offset = b.size / 2.0
@@ -94,7 +94,7 @@ static func _hover_to(b: Button, on: bool) -> void:
 	b.set_meta(&"ui_hover_tween", tw)
 
 
-static func _sync_hover(b: Button) -> void:
+static func _sync_hover(b: BaseButton) -> void:
 	if not is_instance_valid(b):
 		return
 	b.pivot_offset = b.size / 2.0
@@ -187,6 +187,37 @@ static func star_points(radius: float) -> PackedVector2Array:
 		var r := radius if i % 2 == 0 else radius * 0.45
 		pts.append(Vector2(cos(ang), sin(ang)) * r)
 	return pts
+
+
+## Gambar rating bintang (1-3). Catatan nama file dari desain:
+## star_3.png berisi 1 emas (tengah) + 2 abu-abu, star_2.png berisi 2 emas
+## (kiri+kanan) + 1 abu-abu. stars_3_gold.png = gabungan keduanya (3 emas).
+const STAR_RATING_TEXTURES := {
+	1: "res://assets/ui/icons/star_3.png",
+	2: "res://assets/ui/icons/star_2.png",
+	3: "res://assets/ui/icons/stars_3_gold.png",
+}
+
+
+## Wadah berukuran tetap berisi gambar bintang (child "Stars").
+## Animasikan child "Stars" (scale), bukan wadahnya: container me-reset scale.
+static func star_rating(count: int, height := 60.0) -> Control:
+	var tex := load(STAR_RATING_TEXTURES[clampi(count, 1, 3)]) as Texture2D
+	var holder := Control.new()
+	holder.custom_minimum_size = Vector2(height * tex.get_width() / tex.get_height(), height)
+	holder.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	holder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var r := TextureRect.new()
+	r.name = "Stars"
+	r.texture = tex
+	r.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	r.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	r.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	r.size = holder.custom_minimum_size
+	r.pivot_offset = r.size / 2.0
+	holder.add_child(r)
+	return holder
 
 
 static func star(radius := 12.0, color := GOLD) -> Polygon2D:

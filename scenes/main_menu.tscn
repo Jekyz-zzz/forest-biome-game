@@ -34,12 +34,12 @@ mouse_filter = 2
 
 [node name="PlayButton" type="Button" parent="Planks" unique_id=1612245675]
 layout_mode = 0
-offset_left = 418.00003
-offset_top = 204.00002
-offset_right = 553.8862
-offset_bottom = 238.00002
-rotation = -0.02
-pivot_offset = Vector2(90, 25)
+offset_left = 418.0
+offset_top = 194.0
+offset_right = 581.0
+offset_bottom = 240.0
+rotation = -0.173
+pivot_offset = Vector2(74, 23)
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0.2902, 0.1608, 0.0627, 1)
@@ -47,17 +47,20 @@ theme_override_colors/font_pressed_color = Color(0.2196, 0.1216, 0.0471, 1)
 theme_override_colors/font_hover_color = Color(0.3608, 0.2039, 0.0784, 1)
 theme_override_colors/font_outline_color = Color(0.9608, 0.902, 0.7216, 1)
 theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 12
 text = "PLAY"
 flat = true
+metadata/text_margin_left = 16.0
+metadata/text_margin_right = 29.0
 
 [node name="SettingButton" type="Button" parent="Planks" unique_id=1648955525]
 layout_mode = 0
-offset_left = 407.0
-offset_top = 252.0
-offset_right = 558.0
-offset_bottom = 295.0
-pivot_offset = Vector2(90, 25)
+offset_left = 413.0
+offset_top = 255.0
+offset_right = 578.0
+offset_bottom = 303.0
+rotation = -0.055
+pivot_offset = Vector2(76, 24)
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0.2902, 0.1608, 0.0627, 1)
@@ -65,18 +68,20 @@ theme_override_colors/font_pressed_color = Color(0.2196, 0.1216, 0.0471, 1)
 theme_override_colors/font_hover_color = Color(0.3608, 0.2039, 0.0784, 1)
 theme_override_colors/font_outline_color = Color(0.9608, 0.902, 0.7216, 1)
 theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 12
 text = "SETTING"
 flat = true
+metadata/text_margin_left = 15.0
+metadata/text_margin_right = 27.0
 
 [node name="ExitButton" type="Button" parent="Planks" unique_id=307207077]
 layout_mode = 0
-offset_left = 406.00003
-offset_top = 307.00003
-offset_right = 561.3056
-offset_bottom = 347.31473
-rotation = 0.015
-pivot_offset = Vector2(90, 25)
+offset_left = 404.0
+offset_top = 318.0
+offset_right = 568.0
+offset_bottom = 366.0
+rotation = -0.13
+pivot_offset = Vector2(86, 24)
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_override_colors/font_color = Color(0.2902, 0.1608, 0.0627, 1)
@@ -84,9 +89,11 @@ theme_override_colors/font_pressed_color = Color(0.2196, 0.1216, 0.0471, 1)
 theme_override_colors/font_hover_color = Color(0.3608, 0.2039, 0.0784, 1)
 theme_override_colors/font_outline_color = Color(0.9608, 0.902, 0.7216, 1)
 theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 12
 text = "EXIT"
 flat = true
+metadata/text_margin_left = 24.0
+metadata/text_margin_right = 17.0
 
 [node name="CreditsButton" type="Button" parent="." unique_id=10802656]
 layout_mode = 0

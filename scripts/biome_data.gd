@@ -33,7 +33,7 @@ const BIOMES := {
 				"text": "Aku penjaga rimba yang hanya hidup di Sumatera. Setiap jejakku menandakan hutan ini masih sehat. Jika rumahku hilang, aku pun ikut lenyap.",
 			},
 			{
-				"name": "Rafflesia arnoldi",
+				"name": "Rafflesia arnoldii",
 				"text": "Aku bunga terbesar di dunia, tumbuh di rimba yang menjadi paru-paru dunia. Hutan ini menyaring udara dan menyimpan napas bagi kita semua.",
 			},
 		],

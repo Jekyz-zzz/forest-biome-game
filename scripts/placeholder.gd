@@ -33,7 +33,13 @@ func _apply_art() -> void:
 		if _art_rect != null and is_instance_valid(_art_rect):
 			_art_rect.queue_free()
 		_art_rect = null
+		self_modulate.a = 1.0
 		return
+
+	# Blok warna tetap tersimpan sebagai cadangan, tapi tidak digambar di
+	# belakang gambar (PNG transparan tidak berlatar kotak). self_modulate
+	# hanya memengaruhi node ini, bukan child ArtPreview.
+	self_modulate.a = 0.0
 
 	if _art_rect == null or not is_instance_valid(_art_rect):
 		_art_rect = TextureRect.new()

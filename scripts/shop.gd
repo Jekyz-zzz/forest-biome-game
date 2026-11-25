@@ -53,6 +53,9 @@ const ITEMS := [
 	},
 ]
 
+## Posisi atas baris tab (di bawah judul "Toko Hutan").
+const TABS_Y := 46.0
+
 var _tab := "tanaman"
 var _coin_label: Label
 var _items_box: VBoxContainer
@@ -89,7 +92,7 @@ func _build_topbar() -> void:
 	add_child(back)
 
 	var title := UI.title("Toko Hutan", 22)
-	title.position = Vector2(0, 8)
+	title.position = Vector2(0, 2)  # sedikit naik: beri ruang tab di bawahnya
 	title.size = Vector2(640, 30)
 	add_child(title)
 
@@ -112,8 +115,9 @@ func _on_back() -> void:
 # ------------------------------------------------------------------- tab --
 
 func _build_tabs() -> void:
+	# Tab di tengah, di bawah judul: tidak berdempet dengan tombol Kembali
+	# (Kembali di kiri atas, tab mulai x~200) dan berakhir di atas panel (y=88).
 	var row := UI.hbox(8)
-	row.position = Vector2(10, 50)
 	add_child(row)
 
 	for tab_id in ["tanaman", "pupuk"]:
@@ -121,6 +125,9 @@ func _build_tabs() -> void:
 		b.pressed.connect(_on_tab_pressed.bind(tab_id))
 		row.add_child(b)
 		_tab_buttons[tab_id] = b
+
+	row.reset_size()
+	row.position = Vector2(roundf((640.0 - row.size.x) / 2.0), TABS_Y)
 
 
 func _on_tab_pressed(tab_id: String) -> void:

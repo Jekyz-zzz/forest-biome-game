@@ -13,32 +13,48 @@ const OUT_DIR := "res://screenshots/debug"
 const WAIT_FRAMES := 12
 
 var _tag := "shot"
+## --only=explore,quiz : hanya jalankan bagian yang namanya disebut.
+var _only: PackedStringArray = []
 
 
 func _ready() -> void:
 	for arg in OS.get_cmdline_user_args():
 		if arg.begins_with("--tag="):
 			_tag = arg.trim_prefix("--tag=")
+		elif arg.begins_with("--only="):
+			_only = arg.trim_prefix("--only=").split(",")
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT_DIR))
 	GameState.apply_game_window()
 	await _settle()
 
-	await _shot_states()
-	await _shot_main_menu()
-	GameState.apply_game_window()
-	await _shot_simple("res://scenes/intro.tscn", "intro", 1.5)
-	await _shot_map()
-	await _shot_quiz()
-	await _shot_shop()
-	await _shot_results()
-	await _shot_explore()
-	await _shot_runner()
+	if _want("states"): await _shot_states()
+	if _want("menu"):
+		await _shot_main_menu()
+		GameState.apply_game_window()
+	if _want("intro"):
+		await _shot_simple("res://scenes/intro.tscn", "intro", 1.5)
+		await _shot_intro_slides()
+	if _want("map"): await _shot_map()
+	if _want("quiz"): await _shot_quiz()
+	if _want("shop"): await _shot_shop()
+	if _want("results"): await _shot_results()
+	if _want("explore"):
+		await _shot_explore()
+		await _shot_explore_objects("hujan")
+		await _shot_explore_objects("sabana")
+		await _shot_explore_objects("mangrove")
+	if _want("runner"): await _shot_runner()
+	if _want("fire"): await _shot_simple("res://scenes/minigame_fire.tscn", "fire", 2.0)
 
 	print("[screenshot_ui] selesai")
 	get_tree().quit()
 
 
 # ----------------------------------------------------------- lembar state --
+
+func _want(part: String) -> bool:
+	return _only.is_empty() or _only.has(part)
+
 
 func _shot_states() -> void:
 	var root := Control.new()
@@ -102,15 +118,46 @@ func _shot_main_menu() -> void:
 	add_child(menu)
 	await _settle()
 	await _shot("main_menu")
+	# Hover pada papan SETTING (membesar dari tengah teks).
+	_hover(menu.get_node("Planks/SettingButton"))
+	await get_tree().create_timer(0.5).timeout
+	await _shot("main_menu_hover_setting")
+	_hover(menu.get_node("CreditsButton"))
+	await get_tree().create_timer(0.4).timeout
+	# Tandai area klik tiap papan (hanya untuk pengecekan visual).
+	var marks: Array[Node] = []
+	for n in ["PlayButton", "SettingButton", "ExitButton"]:
+		var b := menu.get_node("Planks/" + n) as Button
+		var r := ColorRect.new()
+		r.color = Color(1, 0, 0, 0.25)
+		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		r.size = b.size
+		b.add_child(r)
+		marks.append(r)
+	await _settle()
+	await _shot("main_menu_hitareas")
+	for r in marks:
+		r.queue_free()
+	await get_tree().process_frame
+
 	menu._open_settings()
 	await _settle()
-	await _shot("main_menu_settings")
+	# 4 kombinasi musik x efek (tampilan saja; _on_toggle/save tidak dipanggil).
+	var icons := menu.find_children("*", "TextureButton", true, false)
+	for combo in [[true, true], [true, false], [false, true], [false, false]]:
+		for i in icons.size():
+			var icon := icons[i] as TextureButton
+			var on: bool = combo[i]
+			icon.set_pressed_no_signal(on)
+			var status := icon.get_parent().get_child(1) as Label
+			menu._show_toggle_state(icon, status, ["Musik", "Efek Suara"][i], on)
+		await _settle()
+		await _shot("settings_musik_%s_efek_%s" % ["nyala" if combo[0] else "mati", "nyala" if combo[1] else "mati"])
 	menu._open_credits()
 	await _settle()
 	await _shot("main_menu_credits")
 	menu.queue_free()
 	await get_tree().process_frame
-
 
 func _shot_simple(path: String, shot_name: String, wait := 0.0) -> void:
 	var scene := (load(path) as PackedScene).instantiate()
@@ -153,6 +200,11 @@ func _shot_quiz() -> void:
 	await get_tree().create_timer(0.5).timeout
 	await _settle()
 	await _shot("quiz_answered")
+	q._correct = 4
+	q._scored = true  # cegah mark_quiz_done()/save
+	q._show_score()
+	await get_tree().create_timer(1.2).timeout
+	await _shot("quiz_score")
 	q.queue_free()
 	await get_tree().process_frame
 
@@ -170,8 +222,47 @@ func _shot_shop() -> void:
 
 
 func _shot_results() -> void:
-	GameState.last_run = {"stars": 2, "coins": 12, "biome": "hujan", "won": true}
-	await _shot_simple("res://scenes/results.tscn", "results", 1.5)
+	for stars in [1, 2, 3]:
+		GameState.last_run = {"stars": stars, "coins": 12, "biome": "hujan", "won": true}
+		await _shot_simple("res://scenes/results.tscn", "results_%d" % stars, 1.5)
+
+
+func _shot_intro_slides() -> void:
+	var intro := (load("res://scenes/intro.tscn") as PackedScene).instantiate()
+	add_child(intro)
+	await _settle()
+	intro._finished = true  # hentikan alur otomatis
+	await get_tree().create_timer(0.8).timeout
+	for i in intro.SLIDES.size():
+		var slide: Dictionary = intro.SLIDES[i]
+		intro._text.text = slide["text"]
+		intro._text.modulate.a = 1.0
+		intro._bg.art_modulate = intro.bg_tint(slide)
+		if i == intro.SLIDES.size() - 1:
+			intro._sprout.scale = Vector2.ONE
+		await _settle()
+		await _shot("intro_slide%d" % (i + 1))
+	intro.queue_free()
+	await get_tree().process_frame
+
+
+func _shot_explore_objects(biome_id: String) -> void:
+	GameState.current_biome = biome_id
+	var ex := (load("res://scenes/explore.tscn") as PackedScene).instantiate()
+	add_child(ex)
+	await _settle()
+	var i := 1
+	for x in [620.0, 1450.0, 2280.0]:
+		ex._player.global_position = Vector2(x - 170.0, 280.0)
+		await get_tree().create_timer(1.0).timeout
+		await _shot("explore_%s_obj%d" % [biome_id, i])
+		ex._open_dialog(i - 1)
+		await _settle()
+		await _shot("explore_%s_obj%d_dialog" % [biome_id, i])
+		ex._close_dialog()
+		i += 1
+	ex.queue_free()
+	await get_tree().process_frame
 
 
 func _shot_explore() -> void:
@@ -194,6 +285,10 @@ func _shot_explore() -> void:
 	ex._open_card_picker()
 	await _settle()
 	await _shot("explore_card_picker")
+	if ex._card_scroll != null:
+		ex._card_scroll.scroll_vertical = 100000
+		await _settle()
+		await _shot("explore_card_picker_bottom")
 	ex.queue_free()
 	await get_tree().process_frame
 
@@ -203,6 +298,8 @@ func _shot_runner() -> void:
 	var mg := (load("res://scenes/minigame_runner.tscn") as PackedScene).instantiate()
 	add_child(mg)
 	await _settle()
+	await get_tree().create_timer(3.5).timeout
+	await _shot("runner_play")
 	mg._set_paused(true)
 	await _settle()
 	await _shot("runner_pause")

@@ -40,9 +40,9 @@ di scene:
 | Yang ingin diubah | Caranya |
 | --- | --- |
 | Gambar latar | Timpa `assets/ui/main_menu_bg.png`. Rasio 45:32 (2880x2048). Jendela menu otomatis memakai rasio yang sama, jadi gambar tidak ter-crop. |
-| Tombol PLAY / SETTING / EXIT | Node `Planks/PlayButton`, `Planks/SettingButton`, `Planks/ExitButton`. Geser `offset_*` atau ubah teksnya. Ketiganya memakai papan penunjuk arah yang sudah ada di gambar latar. |
+| Tombol PLAY / SETTING / EXIT | Node `Planks/PlayButton`, `Planks/SettingButton`, `Planks/ExitButton`. Area tombol menutupi seluruh papan (ekor sampai ujung panah) dan `rotation` mengikuti kemiringan papan; `pivot_offset` = tengah badan papan. Posisi teks di tengah badan papan diatur lewat metadata `text_margin_left` / `text_margin_right` (Inspector → Metadata). |
 | Font tombol | `assets/fonts/MagicSound.ttf` (diatur di `scripts/main_menu.gd`). Ganti path `MENU_FONT_PATH` bila ingin font lain. |
-| Ukuran font | `add_theme_font_size_override("font_size", 18)` di `scripts/main_menu.gd`; nilai 18 dipilih agar SETTING pas di papan. |
+| Ukuran font | Konstanta `PLANK_FONT_SIZE` (12) di `scripts/main_menu.gd`, seragam untuk ketiga papan; 12 dipilih agar SETTING muat di badan papan dengan margin. |
 | Warna teks | Konstanta `INK`, `INK_HOVER`, `INK_PRESSED`, `CREAM_OUTLINE`, `SHADOW` di `scripts/main_menu.gd`. |
 | Efek hover | `_on_plank_hover()` di `scripts/main_menu.gd`: tombol membesar (1.08x), menyala, dan bergoyang halus. Efek tekan ada di `_on_plank_down/up`. |
 | Kredit | Tombol kecil `KREDIT` di kiri bawah; isi popup ada di `_open_credits()`. |
@@ -82,6 +82,8 @@ Semua latar, pohon, dan properti biome adalah node ColorRect di bawah
 | --- | --- |
 | `Sky`, `Hills/Hill1..8`, `Horizon` | Langit dan perbukitan. Warna di-tint otomatis sesuai biome. |
 | `Soil`, `GroundTop`, `Water` | Tanah, permukaan tanah, dan air (khusus mangrove). |
+| `GroundArt/Sabana` | Tanah bertekstur (`tiles/figma/tile_top_middle.png`, diulang sepanjang level, ikut bergulir). Tambah child bernama `Hujan`/`Mangrove` untuk bioma lain; `GroundTop` otomatis disembunyikan bila ada. |
+| `Backdrop/Hujan`, `Backdrop/Sabana` | Latar diam (CanvasLayer di belakang dunia, tidak ikut bergulir). |
 | `Mist/Mist1..6` | Kabut tipis. |
 | `Decor/Decor01..14` | Pohon latar belakang (`Trunk`, `Canopy`, `Grass`). Satu set dipakai untuk semua biome dan di-tint otomatis. |
 | `Props/Hujan`, `Props/Sabana`, `Props/Mangrove` | Properti khas tiap biome. Hanya grup biome aktif yang ditampilkan. |
@@ -155,8 +157,8 @@ konstanta `TOTAL_TRASH` di `scripts/minigame_trash.gd`.
 
 ## 9. Font
 
-- **Menu utama** memakai `assets/fonts/MagicSound.ttf`. Ukuran 18 dipilih agar
-  teks SETTING pas di papan penunjuk arah.
+- **Menu utama** memakai `assets/fonts/MagicSound.ttf`. Ukuran 12 dipilih agar
+  teks SETTING muat di badan papan penunjuk arah.
 - **UI lain** memakai theme global `assets/ui_theme.tres`.
 
 Cara cepat mengganti font seluruh UI:

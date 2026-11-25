@@ -285,18 +285,14 @@ func _show_score() -> void:
 	elif pct >= 70.0:
 		star_count = 2
 
-	var holder := Control.new()
-	holder.custom_minimum_size = Vector2(0, 44)
-	v.add_child(holder)
-	for i in range(3):
-		var s := UI.star(15, UI.GOLD if i < star_count else Color("39493a"))
-		s.position = Vector2(172.0 + 46.0 * float(i), 22)
-		holder.add_child(s)
-		s.scale = Vector2.ZERO
-		var tw := create_tween()
-		tw.tween_interval(0.2 + 0.2 * float(i))
-		tw.set_trans(Tween.TRANS_BACK)
-		tw.tween_property(s, "scale", Vector2.ONE, 0.35)
+	var rating := UI.star_rating(star_count, 56)
+	v.add_child(rating)
+	var star_img := rating.get_node("Stars") as Control
+	star_img.scale = Vector2.ZERO
+	var tw := create_tween()
+	tw.tween_interval(0.2)
+	tw.set_trans(Tween.TRANS_BACK)
+	tw.tween_property(star_img, "scale", Vector2.ONE, 0.4)
 
 	v.add_child(UI.label(
 		_tier_message(pct),

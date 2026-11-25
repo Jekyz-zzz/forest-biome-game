@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/minigame_runner.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/placeholder.gd" id="2_ph"]
-[ext_resource type="Texture2D" path="res://assets/placeholders/runner_background.png" id="3_bg"]
+[ext_resource type="Texture2D" path="res://assets/ui/screens/start.png" id="3_bg"]
 [ext_resource type="Texture2D" path="res://assets/placeholders/runner_ground.png" id="4_ground"]
 [ext_resource type="Texture2D" path="res://assets/placeholders/runner_tiger.png" id="5_tiger"]
 [ext_resource type="Texture2D" path="res://assets/placeholders/runner_rock.png" id="6_rock"]
@@ -17,6 +17,7 @@ script = ExtResource("1")
 [node name="Placeholders" type="Node2D" parent="."]
 
 [node name="Sky" type="ColorRect" parent="Placeholders"]
+offset_top = -95.0
 offset_right = 640.0
 offset_bottom = 360.0
 mouse_filter = 2

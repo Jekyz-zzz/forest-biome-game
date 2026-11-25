@@ -1,9 +1,22 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=19 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/explore.gd" id="1"]
 
 [ext_resource type="Script" path="res://scripts/placeholder.gd" id="2_ph"]
+[ext_resource type="Texture2D" path="res://assets/sprites/signs/penanda_4.png" id="10_sign_meranti"]
+[ext_resource type="Texture2D" path="res://assets/sprites/signs/penanda_1.png" id="11_sign_harimau"]
+[ext_resource type="Texture2D" path="res://assets/sprites/signs/penanda_3.png" id="12_sign_akasia"]
+[ext_resource type="Texture2D" path="res://assets/sprites/signs/penanda_2.png" id="13_sign_komodo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/signs/penanda_6.png" id="14_sign_rumput"]
+[ext_resource type="Texture2D" path="res://assets/sprites/animals/harimau_sumatera.png" id="15_harimau"]
+[ext_resource type="Texture2D" path="res://assets/sprites/animals/komodo.png" id="16_komodo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/plants/rafflesia.png" id="17_rafflesia"]
+[ext_resource type="Texture2D" path="res://assets/ui/screens/start.png" id="18_bg_hujan"]
+[ext_resource type="Texture2D" path="res://assets/sprites/backgrounds/bg_sabana.png" id="19_bg_sabana"]
+[ext_resource type="Texture2D" path="res://assets/sprites/map/trees/tree_meranti_1.png" id="20_tree_meranti"]
+[ext_resource type="Texture2D" path="res://assets/sprites/map/trees/tree_akasia.png" id="21_tree_akasia"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/figma/tile_top_middle.png" id="22_ground_sabana"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
 size = Vector2(3400, 32)
@@ -13,6 +26,27 @@ size = Vector2(32, 360)
 
 [node name="Explore" type="Node2D"]
 script = ExtResource("1")
+
+[node name="Backdrop" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Hujan" type="TextureRect" parent="Backdrop"]
+visible = false
+offset_top = -95.0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+texture = ExtResource("18_bg_hujan")
+expand_mode = 1
+
+[node name="Sabana" type="TextureRect" parent="Backdrop"]
+visible = false
+offset_top = -71.0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+texture = ExtResource("19_bg_sabana")
+expand_mode = 1
 
 [node name="Placeholders" type="Node2D" parent="."]
 
@@ -150,6 +184,22 @@ offset_bottom = 360.0
 mouse_filter = 2
 color = Color(0.2510, 0.5020, 0.5490, 0.35)
 script = ExtResource("2_ph")
+
+[node name="GroundArt" type="Node2D" parent="Placeholders"]
+
+[node name="Sabana" type="TextureRect" parent="Placeholders/GroundArt"]
+visible = false
+texture_filter = 4
+texture_repeat = 2
+offset_left = -64.0
+offset_top = 311.0
+offset_right = 21986.0
+offset_bottom = 718.0
+scale = Vector2(0.16, 0.16)
+mouse_filter = 2
+texture = ExtResource("22_ground_sabana")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="Decor" type="Node2D" parent="Placeholders"]
 
@@ -652,6 +702,7 @@ position = Vector2(0.0, 0.0)
 position = Vector2(620.0, 324.0)
 
 [node name="Trunk" type="ColorRect" parent="Placeholders/Props/Hujan/Meranti"]
+visible = false
 offset_left = -12.0
 offset_top = -150.0
 offset_right = 12.0
@@ -661,6 +712,7 @@ color = Color(0.2902, 0.2000, 0.1255, 1.0)
 script = ExtResource("2_ph")
 
 [node name="CanopyA" type="ColorRect" parent="Placeholders/Props/Hujan/Meranti"]
+visible = false
 offset_left = -60.0
 offset_top = -210.0
 offset_right = 60.0
@@ -670,6 +722,7 @@ color = Color(0.1216, 0.2902, 0.2157, 1.0)
 script = ExtResource("2_ph")
 
 [node name="CanopyB" type="ColorRect" parent="Placeholders/Props/Hujan/Meranti"]
+visible = false
 offset_left = -50.0
 offset_top = -240.0
 offset_right = 50.0
@@ -679,6 +732,7 @@ color = Color(0.1451, 0.3490, 0.2471, 1.0)
 script = ExtResource("2_ph")
 
 [node name="CanopyC" type="ColorRect" parent="Placeholders/Props/Hujan/Meranti"]
+visible = false
 offset_left = -40.0
 offset_top = -260.0
 offset_right = 40.0
@@ -687,10 +741,23 @@ mouse_filter = 2
 color = Color(0.1804, 0.4196, 0.2824, 1.0)
 script = ExtResource("2_ph")
 
+[node name="ArtSprite" type="Sprite2D" parent="Placeholders/Props/Hujan/Meranti"]
+texture_filter = 4
+position = Vector2(-19.0, -114.0)
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("20_tree_meranti")
+
+[node name="Sign" type="Sprite2D" parent="Placeholders/Props/Hujan/Meranti"]
+texture_filter = 4
+position = Vector2(-125.0, -39.0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("10_sign_meranti")
+
 [node name="Harimau" type="Node2D" parent="Placeholders/Props/Hujan"]
 position = Vector2(1450.0, 324.0)
 
 [node name="Body" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = -48.0
 offset_top = -40.0
 offset_right = 38.0
@@ -700,6 +767,7 @@ color = Color(0.8510, 0.5098, 0.1686, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Head" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = 34.0
 offset_top = -48.0
 offset_right = 62.0
@@ -709,6 +777,7 @@ color = Color(0.8510, 0.5098, 0.1686, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Stripe1" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = -40.0
 offset_top = -40.0
 offset_right = -34.0
@@ -718,6 +787,7 @@ color = Color(0.1176, 0.1176, 0.1176, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Stripe2" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = -18.0
 offset_top = -40.0
 offset_right = -12.0
@@ -727,6 +797,7 @@ color = Color(0.1176, 0.1176, 0.1176, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Stripe3" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = 4.0
 offset_top = -40.0
 offset_right = 10.0
@@ -736,6 +807,7 @@ color = Color(0.1176, 0.1176, 0.1176, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Stripe4" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = 26.0
 offset_top = -40.0
 offset_right = 32.0
@@ -745,6 +817,7 @@ color = Color(0.1176, 0.1176, 0.1176, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Leg1" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = -42.0
 offset_top = -12.0
 offset_right = -34.0
@@ -754,6 +827,7 @@ color = Color(0.7882, 0.4588, 0.1412, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Leg2" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = -18.0
 offset_top = -12.0
 offset_right = -10.0
@@ -763,6 +837,7 @@ color = Color(0.7882, 0.4588, 0.1412, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Leg3" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = 6.0
 offset_top = -12.0
 offset_right = 14.0
@@ -772,6 +847,7 @@ color = Color(0.7882, 0.4588, 0.1412, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Leg4" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = 30.0
 offset_top = -12.0
 offset_right = 38.0
@@ -781,6 +857,7 @@ color = Color(0.7882, 0.4588, 0.1412, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Eye1" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = 42.0
 offset_top = -42.0
 offset_right = 47.0
@@ -790,6 +867,7 @@ color = Color(1.0000, 0.9020, 0.5020, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Eye2" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = 52.0
 offset_top = -42.0
 offset_right = 57.0
@@ -799,6 +877,7 @@ color = Color(1.0000, 0.9020, 0.5020, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Bush" type="ColorRect" parent="Placeholders/Props/Hujan/Harimau"]
+visible = false
 offset_left = -20.0
 offset_top = -30.0
 offset_right = 32.0
@@ -807,10 +886,23 @@ mouse_filter = 2
 color = Color(0.1451, 0.3490, 0.2471, 1.0)
 script = ExtResource("2_ph")
 
+[node name="ArtSprite" type="Sprite2D" parent="Placeholders/Props/Hujan/Harimau"]
+texture_filter = 4
+position = Vector2(0.0, -44.0)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("15_harimau")
+
+[node name="Sign" type="Sprite2D" parent="Placeholders/Props/Hujan/Harimau"]
+texture_filter = 4
+position = Vector2(-100.0, -39.0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("11_sign_harimau")
+
 [node name="Rafflesia" type="Node2D" parent="Placeholders/Props/Hujan"]
 position = Vector2(2280.0, 324.0)
 
 [node name="Stem" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+visible = false
 offset_left = -3.0
 offset_top = -16.0
 offset_right = 3.0
@@ -820,6 +912,7 @@ color = Color(0.2471, 0.4196, 0.1961, 1.0)
 script = ExtResource("2_ph")
 
 [node name="PetalL" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+visible = false
 offset_left = -30.0
 offset_top = -42.0
 offset_right = -6.0
@@ -829,6 +922,7 @@ color = Color(0.6902, 0.1882, 0.1725, 1.0)
 script = ExtResource("2_ph")
 
 [node name="PetalR" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+visible = false
 offset_left = 6.0
 offset_top = -42.0
 offset_right = 30.0
@@ -838,6 +932,7 @@ color = Color(0.6902, 0.1882, 0.1725, 1.0)
 script = ExtResource("2_ph")
 
 [node name="PetalTop" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+visible = false
 offset_left = -20.0
 offset_top = -50.0
 offset_right = 20.0
@@ -847,6 +942,7 @@ color = Color(0.6902, 0.1882, 0.1725, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Center" type="ColorRect" parent="Placeholders/Props/Hujan/Rafflesia"]
+visible = false
 offset_left = -9.0
 offset_top = -39.0
 offset_right = 9.0
@@ -854,6 +950,12 @@ offset_bottom = -21.0
 mouse_filter = 2
 color = Color(0.4784, 0.1176, 0.1098, 1.0)
 script = ExtResource("2_ph")
+
+[node name="ArtSprite" type="Sprite2D" parent="Placeholders/Props/Hujan/Rafflesia"]
+texture_filter = 4
+position = Vector2(0.0, -25.0)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("17_rafflesia")
 
 [node name="Sabana" type="Node2D" parent="Placeholders/Props"]
 position = Vector2(0.0, 0.0)
@@ -863,6 +965,7 @@ visible = false
 position = Vector2(620.0, 324.0)
 
 [node name="Trunk" type="ColorRect" parent="Placeholders/Props/Sabana/Akasia"]
+visible = false
 offset_left = -6.0
 offset_top = -96.0
 offset_right = 6.0
@@ -872,6 +975,7 @@ color = Color(0.3529, 0.2588, 0.1529, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Canopy" type="ColorRect" parent="Placeholders/Props/Sabana/Akasia"]
+visible = false
 offset_left = -70.0
 offset_top = -120.0
 offset_right = 70.0
@@ -880,10 +984,23 @@ mouse_filter = 2
 color = Color(0.2471, 0.4196, 0.1961, 1.0)
 script = ExtResource("2_ph")
 
+[node name="ArtSprite" type="Sprite2D" parent="Placeholders/Props/Sabana/Akasia"]
+texture_filter = 4
+position = Vector2(3.0, -90.0)
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("21_tree_akasia")
+
+[node name="Sign" type="Sprite2D" parent="Placeholders/Props/Sabana/Akasia"]
+texture_filter = 4
+position = Vector2(-110.0, -39.0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("12_sign_akasia")
+
 [node name="Komodo" type="Node2D" parent="Placeholders/Props/Sabana"]
 position = Vector2(1450.0, 324.0)
 
 [node name="Body" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+visible = false
 offset_left = -52.0
 offset_top = -26.0
 offset_right = 44.0
@@ -893,6 +1010,7 @@ color = Color(0.4784, 0.4157, 0.3333, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Head" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+visible = false
 offset_left = 44.0
 offset_top = -30.0
 offset_right = 66.0
@@ -902,6 +1020,7 @@ color = Color(0.4784, 0.4157, 0.3333, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Tail" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+visible = false
 offset_left = -88.0
 offset_top = -24.0
 offset_right = -52.0
@@ -911,6 +1030,7 @@ color = Color(0.4784, 0.4157, 0.3333, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Leg1" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+visible = false
 offset_left = -44.0
 offset_top = -10.0
 offset_right = -37.0
@@ -920,6 +1040,7 @@ color = Color(0.4157, 0.3569, 0.2824, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Leg2" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+visible = false
 offset_left = -18.0
 offset_top = -10.0
 offset_right = -11.0
@@ -929,6 +1050,7 @@ color = Color(0.4157, 0.3569, 0.2824, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Leg3" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+visible = false
 offset_left = 8.0
 offset_top = -10.0
 offset_right = 15.0
@@ -938,6 +1060,7 @@ color = Color(0.4157, 0.3569, 0.2824, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Leg4" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+visible = false
 offset_left = 34.0
 offset_top = -10.0
 offset_right = 41.0
@@ -947,6 +1070,7 @@ color = Color(0.4157, 0.3569, 0.2824, 1.0)
 script = ExtResource("2_ph")
 
 [node name="Tongue" type="ColorRect" parent="Placeholders/Props/Sabana/Komodo"]
+visible = false
 offset_left = 66.0
 offset_top = -24.0
 offset_right = 80.0
@@ -954,6 +1078,18 @@ offset_bottom = -22.0
 mouse_filter = 2
 color = Color(0.8510, 0.3255, 0.3098, 1.0)
 script = ExtResource("2_ph")
+
+[node name="ArtSprite" type="Sprite2D" parent="Placeholders/Props/Sabana/Komodo"]
+texture_filter = 4
+position = Vector2(0.0, -40.0)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("16_komodo")
+
+[node name="Sign" type="Sprite2D" parent="Placeholders/Props/Sabana/Komodo"]
+texture_filter = 4
+position = Vector2(-105.0, -39.0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("13_sign_komodo")
 
 [node name="TallGrass" type="Node2D" parent="Placeholders/Props/Sabana"]
 position = Vector2(2280.0, 324.0)
@@ -1002,6 +1138,12 @@ offset_bottom = 0.0
 mouse_filter = 2
 color = Color(0.6039, 0.6588, 0.3059, 1.0)
 script = ExtResource("2_ph")
+
+[node name="Sign" type="Sprite2D" parent="Placeholders/Props/Sabana/TallGrass"]
+texture_filter = 4
+position = Vector2(-80.0, -43.0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("14_sign_rumput")
 
 [node name="Mangrove" type="Node2D" parent="Placeholders/Props"]
 position = Vector2(0.0, 0.0)

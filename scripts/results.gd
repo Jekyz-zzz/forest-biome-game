@@ -24,19 +24,14 @@ func _ready() -> void:
 
 	box.add_child(UI.label("Performa:", 15, UI.CREAM, HORIZONTAL_ALIGNMENT_CENTER))
 
-	var star_holder := Control.new()
-	star_holder.custom_minimum_size = Vector2(160, 44)
-	star_holder.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	box.add_child(star_holder)
-	for i in range(3):
-		var s := UI.star(15, UI.GOLD if i < stars else Color("39493a"))
-		s.position = Vector2(36.0 + 44.0 * float(i), 22)  # tengah holder 160 px
-		star_holder.add_child(s)
-		s.scale = Vector2.ZERO
-		var tw := create_tween()
-		tw.tween_interval(0.3 + 0.25 * float(i))
-		tw.set_trans(Tween.TRANS_BACK)
-		tw.tween_property(s, "scale", Vector2.ONE, 0.4)
+	var rating := UI.star_rating(stars, 64)
+	box.add_child(rating)
+	var star_img := rating.get_node("Stars") as Control
+	star_img.scale = Vector2.ZERO
+	var tw := create_tween()
+	tw.tween_interval(0.3)
+	tw.set_trans(Tween.TRANS_BACK)
+	tw.tween_property(star_img, "scale", Vector2.ONE, 0.45)
 
 	var coins_label := UI.label("Koin didapat: +0", 20, UI.GOLD, HORIZONTAL_ALIGNMENT_CENTER)
 	box.add_child(coins_label)

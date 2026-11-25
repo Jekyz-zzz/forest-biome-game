@@ -109,6 +109,68 @@ func _apply_biome_colors() -> void:
 
 	_apply_decor()
 	_show_props()
+	_apply_backdrop()
+	_apply_ground_art()
+
+
+## Tanah bertekstur per bioma (node Placeholders/GroundArt/<Bioma>), diulang
+## sepanjang level dan ikut bergulir sehingga gerak pemain terasa.
+## Kalau ada, garis rumput polos (GroundTop) disembunyikan; Soil tetap jadi dasar.
+func _apply_ground_art() -> void:
+	var ground_art := _ph("GroundArt")
+	if ground_art == null:
+		return
+	var active := biome_id.capitalize()
+	var has_art := false
+	for child in ground_art.get_children():
+		if child is CanvasItem:
+			var on: bool = child.name == active
+			(child as CanvasItem).visible = on
+			has_art = has_art or on
+	if has_art:
+		var top := _ph("GroundTop") as CanvasItem
+		if top != null:
+			top.visible = false
+
+
+## Warna tanah [GroundTop, Soil] untuk bioma yang memakai gambar latar.
+const BACKDROP_GROUND := {
+	"hujan": [Color("3f6b26"), Color("24361a")],  # hijau tua
+	"sabana": [Color("c49a48"), Color("8e6a34")],  # cokelat keemasan
+}
+
+
+## Latar diam (node Backdrop, CanvasLayer di belakang dunia) per bioma.
+## Kalau bioma punya gambar latar, langit & bukit placeholder disembunyikan.
+func _apply_backdrop() -> void:
+	var backdrop := get_node_or_null("Backdrop")
+	if backdrop == null:
+		return
+	var active := biome_id.capitalize()
+	var has_art := false
+	for child in backdrop.get_children():
+		if child is CanvasItem:
+			var on: bool = child.name == active
+			(child as CanvasItem).visible = on
+			has_art = has_art or on
+	if not has_art:
+		return
+	# Latar diam sudah memuat langit, pohon, dan kabut: sembunyikan placeholder
+	# latar (termasuk pohon/rumput blok di Decor). Objek dialog (Props) tetap.
+	for path in ["Sky", "Hills", "Horizon", "Decor", "Mist"]:
+		var node := _ph(path) as CanvasItem
+		if node != null:
+			node.visible = false
+	# Tanah tetap tampil dan ikut bergulir (penanda gerak pemain), warnanya
+	# disesuaikan dengan gambar latar.
+	var colors: Array = BACKDROP_GROUND.get(biome_id, [])
+	if colors.size() == 2:
+		var top := _ph("GroundTop") as ColorRect
+		if top != null:
+			top.color = colors[0]
+		var soil := _ph("Soil") as ColorRect
+		if soil != null:
+			soil.color = colors[1]
 
 
 func _show_props() -> void:
@@ -442,6 +504,13 @@ func _close_briefing(dim: CanvasItem, box: CanvasItem) -> void:
 
 # ------------------------------------------------------------ kartu power up --
 
+## Tinggi maksimum daftar kartu di popup (sisanya di-scroll).
+const CARD_LIST_MAX_H := 184.0
+
+## Scroll daftar kartu yang sedang terbuka (dipakai script screenshot).
+var _card_scroll: ScrollContainer
+
+
 func _open_card_picker() -> void:
 	var dim := UI.dim(Color(0, 0, 0, 0.7))
 	_hud.add_child(dim)
@@ -459,16 +528,43 @@ func _open_card_picker() -> void:
 			14, UI.CREAM, HORIZONTAL_ALIGNMENT_CENTER, 400
 		))
 	else:
+		# Daftar kartu bisa di-scroll supaya popup tetap muat di layar 360 px.
+		# Dibingkai agar batas area daftar jelas dan tidak terlihat
+		# "tertutup" tombol di bawahnya.
+		var frame := PanelContainer.new()
+		var frame_sb := UI.flat(Color(1, 1, 1, 0.05), 8)
+		frame_sb.set_content_margin_all(6)
+		frame.add_theme_stylebox_override("panel", frame_sb)
+		v.add_child(frame)
+		var scroll := ScrollContainer.new()
+		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		frame.add_child(scroll)
+		_card_scroll = scroll
+		var list := UI.vbox(6)
+		list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		scroll.add_child(list)
 		for card_id in GameState.owned_cards:
-			v.add_child(_make_card_row(String(card_id), dim, box))
-		if GameState.equipped_card != "":
-			var unequip := UI.button("Lepas kartu", 13, Vector2(140, 30))
-			unequip.pressed.connect(_on_unequip.bind(dim, box))
-			v.add_child(unequip)
+			list.add_child(_make_card_row(String(card_id), dim, box))
+		scroll.custom_minimum_size.y = minf(list.get_combined_minimum_size().y, CARD_LIST_MAX_H)
+
+	# Jarak ekstra antara daftar dan tombol.
+	var gap := Control.new()
+	gap.custom_minimum_size = Vector2(0, 4)
+	gap.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(gap)
+
+	# Tombol bawah berdampingan agar hemat tempat.
+	var buttons := UI.hbox(10)
+	buttons.alignment = BoxContainer.ALIGNMENT_CENTER
+	v.add_child(buttons)
+	if not GameState.owned_cards.is_empty() and GameState.equipped_card != "":
+		var unequip := UI.button("Lepas kartu", 13, Vector2(140, 30))
+		unequip.pressed.connect(_on_unequip.bind(dim, box))
+		buttons.add_child(unequip)
 
 	var close := UI.button("Tutup", 14, Vector2(100, 32))
 	close.pressed.connect(_close_popup.bind(dim, box))
-	v.add_child(close)
+	buttons.add_child(close)
 
 
 func _make_card_row(card_id: String, picker_dim: CanvasItem, picker_box: CanvasItem) -> Control:
