@@ -83,6 +83,7 @@ Semua latar, pohon, dan properti biome adalah node ColorRect di bawah
 | `Sky`, `Hills/Hill1..8`, `Horizon` | Langit dan perbukitan. Warna di-tint otomatis sesuai biome. |
 | `Soil`, `GroundTop`, `Water` | Tanah, permukaan tanah, dan air (khusus mangrove). |
 | `GroundArt/Sabana` | Tanah bertekstur (`tiles/figma/tile_top_middle.png`, diulang sepanjang level, ikut bergulir). Tambah child bernama `Hujan`/`Mangrove` untuk bioma lain; `GroundTop` otomatis disembunyikan bila ada. |
+| `GroundArt/Hujan` | Tanah 3 potong `tiles/ground_hujan_left/mid/right.png` (satuan anak = piksel gambar, skala di node `Hujan`). `Left` di awal level, `MidClip/Mid` diulang (texture repeat) 36x, `Right` di akhir setelah gerbang. `MidClip` memotong 12 baris teratas dan menutupi 24 kolom terakhir `Left` agar tidak muncul garis di sambungan. Garis rumput (baris 80 gambar) = permukaan collision y=324. |
 | `Backdrop/Hujan`, `Backdrop/Sabana` | Latar diam (CanvasLayer di belakang dunia, tidak ikut bergulir). |
 | `Mist/Mist1..6` | Kabut tipis. |
 | `Decor/Decor01..14` | Pohon latar belakang (`Trunk`, `Canopy`, `Grass`). Satu set dipakai untuk semua biome dan di-tint otomatis. |

@@ -135,7 +135,9 @@ func _apply_ground_art() -> void:
 
 ## Warna tanah [GroundTop, Soil] untuk bioma yang memakai gambar latar.
 const BACKDROP_GROUND := {
-	"hujan": [Color("3f6b26"), Color("24361a")],  # hijau tua
+	# Soil hujan = warna tanah ground_hujan_*.png, supaya sambungan potongan
+	# tidak memperlihatkan warna lain di belakangnya.
+	"hujan": [Color("3f6b26"), Color("705c2d")],
 	"sabana": [Color("c49a48"), Color("8e6a34")],  # cokelat keemasan
 }
 

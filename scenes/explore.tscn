@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=22 format=3]
 
 
 [ext_resource type="Script" path="res://scripts/explore.gd" id="1"]
@@ -17,6 +17,9 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/map/trees/tree_meranti_1.png" id="20_tree_meranti"]
 [ext_resource type="Texture2D" path="res://assets/sprites/map/trees/tree_akasia.png" id="21_tree_akasia"]
 [ext_resource type="Texture2D" path="res://assets/sprites/tiles/figma/tile_top_middle.png" id="22_ground_sabana"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/ground_hujan_left.png" id="23_ground_hujan_left"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/ground_hujan_mid.png" id="24_ground_hujan_mid"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/ground_hujan_right.png" id="25_ground_hujan_right"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
 size = Vector2(3400, 32)
@@ -200,6 +203,49 @@ mouse_filter = 2
 texture = ExtResource("22_ground_sabana")
 expand_mode = 1
 stretch_mode = 1
+
+[node name="Hujan" type="Node2D" parent="Placeholders/GroundArt"]
+visible = false
+texture_filter = 4
+position = Vector2(0, 315.178)
+scale = Vector2(0.110279, 0.110279)
+
+[node name="Left" type="TextureRect" parent="Placeholders/GroundArt/Hujan"]
+offset_left = 0.0
+offset_right = 764.0
+offset_bottom = 751.0
+mouse_filter = 2
+texture = ExtResource("23_ground_hujan_left")
+expand_mode = 1
+
+[node name="MidClip" type="Control" parent="Placeholders/GroundArt/Hujan"]
+clip_contents = true
+layout_mode = 3
+offset_left = 739.0
+offset_top = 12.0
+offset_right = 30067.0
+offset_bottom = 751.0
+mouse_filter = 2
+
+[node name="Mid" type="TextureRect" parent="Placeholders/GroundArt/Hujan/MidClip"]
+texture_repeat = 2
+layout_mode = 0
+offset_left = -790.0
+offset_top = -12.0
+offset_right = 29328.0
+offset_bottom = 739.0
+mouse_filter = 2
+texture = ExtResource("24_ground_hujan_mid")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Right" type="TextureRect" parent="Placeholders/GroundArt/Hujan"]
+offset_left = 30067.0
+offset_right = 30831.0
+offset_bottom = 751.0
+mouse_filter = 2
+texture = ExtResource("25_ground_hujan_right")
+expand_mode = 1
 
 [node name="Decor" type="Node2D" parent="Placeholders"]
 
